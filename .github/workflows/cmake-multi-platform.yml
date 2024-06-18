@@ -103,7 +103,7 @@ jobs:
           name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
           path: |
             build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe
-#            build/third_party/SDL/SDL2d.dll
+            build/third_party/SDL/Release/SDL2.dll
           if-no-files-found: error
           retention-days: 0
 
