@@ -1,5 +1,10 @@
 #pragma once
 
+/**
+ * @brief An as of yet unused enum for ProjectHSI_Bot_Interface_Info. It was intended to contain information about the interface.
+ *
+ * \deprecated This enum is not used and may be deleted.
+ */
 enum ProjectHSI_Bot_Interface_Flags {
 	//Graphical = 0b00000001
 };
@@ -9,7 +14,7 @@ enum ProjectHSI_Bot_Interface_Flags {
  *
  * This documentation assumes that the interface is GUI-based.
  *
- * Example implementations of functions will use SDL2.
+ * Example implementations of functions will use *SDL2*.
  *
  * You SHOULD NOT put function pointers to the underlying library/framework function directly.
  * Instead, you should put an intermediary functions to call the underlying library/framework's respective function.
