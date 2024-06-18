@@ -91,6 +91,11 @@ jobs:
           echo "git-commit-hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
           echo "git-branch=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"
 
+      - name: List files
+        shell: bash
+        run: |
+          ls -R
+
       - name: Upload Build Artifact For Windows
         if: ${{ matrix.os == 'windows-latest' }}
         uses: actions/upload-artifact@v4.0.0
@@ -98,6 +103,7 @@ jobs:
           name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
           path: |
             build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe
+#            build/third_party/SDL/SDL2d.dll
           if-no-files-found: error
           retention-days: 0
 
@@ -108,5 +114,6 @@ jobs:
           name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
           path: |
             build/ProjectHSI-Bot/ProjectHSI-Bot
+#            build/third_party/SDL/SDL2d.dll
           if-no-files-found: error
           retention-days: 0
