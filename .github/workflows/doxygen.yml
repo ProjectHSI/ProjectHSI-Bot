@@ -44,7 +44,9 @@ jobs:
 
       - name: diag
         run: |
-          ls ProjectHSI-Bot-Shared-Docs
+          ls
+          ls ProjectHSI-Bot-Shared
+          ls ProjectHSI-Bot-Shared/docs
 
       #- name: Upload artifact
       #  uses: actions/upload-pages-artifact@v3.0.1
