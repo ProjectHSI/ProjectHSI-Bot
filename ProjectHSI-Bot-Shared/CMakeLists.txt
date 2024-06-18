@@ -12,4 +12,6 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
     set_property(TARGET ProjectHSI-Bot-Shared PROPERTY CXX_STANDARD 20)
 endif()
 
-doxygen_add_docs(ProjectHSI-Bot-Shared-Docs ${CMAKE_CURRENT_SOURCE_DIR} CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
+if(doxygen_FOUND)
+    doxygen_add_docs(ProjectHSI-Bot-Shared-Docs ${CMAKE_CURRENT_SOURCE_DIR} CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile)
+endif()

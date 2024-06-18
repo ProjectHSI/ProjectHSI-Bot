@@ -11,7 +11,7 @@ endif()
 
 project ("ProjectHSI-Bot")
 
-option(ProjectHSIBot_NO_BUILD_TARGETS "Disables all builds targets, and only includes the ProjectHSI-Bot-Shared documentation target. Note that the documentation can be generated without setting this option." FALSE)
+option(ProjectHSIBot_NO_BUILD_TARGETS "Disables all builds targets, and only includes the ProjectHSI-Bot-Shared documentation target. Note that the documentation can still be generated with this option enabled (assuming your system has Doxygen installed)." FALSE)
 
 if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 
