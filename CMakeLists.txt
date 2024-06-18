@@ -23,7 +23,7 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 
 		add_subdirectory("third_party/SDL" EXCLUDE_FROM_ALL)
 		add_subdirectory("third_party/SDL_net" EXCLUDE_FROM_ALL)
-		#set(SDL2MIXER_VENDORED OFF) # inconsistent behaviour between platforms lol
+		set(SDL2MIXER_VENDORED ON) # inconsistent behaviour between platforms lol
 		add_subdirectory("third_party/SDL_mixer" EXCLUDE_FROM_ALL)
 		add_subdirectory("third_party/SDL_ttf" EXCLUDE_FROM_ALL)
 		add_subdirectory("third_party/SDL_image" EXCLUDE_FROM_ALL)
