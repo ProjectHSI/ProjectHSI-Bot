@@ -1,5 +1,9 @@
 #pragma once
 
+#define ABI_VERSION_X 0
+#define ABI_VERSION_Y 0
+#define ABI_VERSION_Z 1
+
 /**
  * @brief Used by the orchestrator to communicate it's ABI version to engine/interface.
  * 

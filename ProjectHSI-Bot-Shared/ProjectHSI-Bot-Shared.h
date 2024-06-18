@@ -2,10 +2,6 @@
 
 #include "ProjectHSI-Bot-Shared-Types.h"
 
-#define ABI_VERSION_X 0
-#define ABI_VERSION_Y 0
-#define ABI_VERSION_Z 1
-
 #ifdef __cplusplus
 extern "C" {
 #endif
