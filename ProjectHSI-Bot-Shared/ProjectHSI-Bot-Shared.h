@@ -13,9 +13,11 @@ extern "C" {
 	/**
 	 * \brief Used by the orchestrator to allow the engine/interface to check for ABI compatibility.
 	 * 
-	 * It is recommended to use the #ABI_CHECK macro to check the ABI version of the orchestrator, but is not required.
+	 * It is recommended to use the #ABI_CHECK macro to check the ABI version of the orchestrator, but the use of #ABI_CHECK is not required.
 	 * 
-	 * You MUST NOT initalize the engine in the abi_check function.
+	 * You **MUST NOT** initalize the engine in the abi_check function.
+	 * Engine initalization is done via a seperate (TBA) call, and the engine initalization MUST be done there,
+	 * instead in the abi_check function.
 	 * 
 	 * \see ABI_CHECK
 	 * \param[in] abiVersion The ABI version of the orchestrator.
