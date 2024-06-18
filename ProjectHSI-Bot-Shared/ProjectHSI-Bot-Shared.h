@@ -30,4 +30,4 @@ extern "C" {
  * 
  * Custom libraries may override the abi_check function to provide different behaviour for different ABI versions.
  */
-#define ABI_CHECK bool __declspec(dllexport) abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion) { return (abiVersion.major == ABI_VERSION_X && abiVersion.minor == ABI_VERSION_Y && abiVersion.patch == ABI_VERSION_Z); }
+#define ABI_CHECK bool abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion) { return (abiVersion.major == ABI_VERSION_X && abiVersion.minor == ABI_VERSION_Y && abiVersion.patch == ABI_VERSION_Z); }
