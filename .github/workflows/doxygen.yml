@@ -42,18 +42,11 @@ jobs:
           cmake --build ${{ github.workspace }}/build
           -t ProjectHSI-Bot-Shared-Docs
 
-      - name: diag
-        run: |
-          ls
-          ls ProjectHSI-Bot-Shared
-          ls ProjectHSI-Bot-Shared/docs
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: '${{ github.workspace }}/docs/html'
 
-      #- name: Upload artifact
-      #  uses: actions/upload-pages-artifact@v3.0.1
-      #  with:
-      #    path: '${{ github.workspace }}/docs/html'
-
-  # Deployment job
   deploy:
     environment:
       name: github-pages
