@@ -16,16 +16,16 @@ enum ProjectHSI_Bot_Interface_Flags {
  */
 struct ProjectHSI_Bot_Interface_GraphicalInfo {
 	/**
-	 * @brief A function provided by the interface and used by the engine to draw a background to the GUI.
+	 * @brief A function pointer provided by the interface and used by the engine to draw a background to the GUI.
 	 *
-	 * An implementation could, for instance, could be done with SDL_RenderClear, SDL_DrawRect, or similiar functions.
+	 * An implementation of this function could, for instance, could be done with `SDL_RenderClear`, `SDL_DrawRect`, or similiar functions.
 	 */
 	bool (*drawBackground) (unsigned int colour);
 
 	/**
-	 * @brief A function provided by the interface and used by the engine to draw a rectangle to the GUI.
+	 * @brief A function pointer provided by the interface and used by the engine to draw a rectangle to the GUI.
 	 *
-	 * An implementation could, for instance, could be done with SDL_DrawRect, or similiar functions.
+	 * An implementation of this function could, for instance, could be done with `SDL_DrawRect`, or similiar functions.
 	*/
 	bool (*drawRect) (float x, float y, float width, float height, unsigned int colour);
 };
