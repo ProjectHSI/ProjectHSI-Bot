@@ -33,7 +33,7 @@ static void loadInterface(const std::filesystem::path &interfaceSharedObjectPath
 		goto emergen_stop;
 	}
 
-	typedef bool(__declspec() *abi_check_funct)(ProjectHSI_Bot_Shared_ABIVersion);
+	typedef bool(*abi_check_funct)(ProjectHSI_Bot_Shared_ABIVersion);
 
 	abi_check_funct abi_check_func;
 
