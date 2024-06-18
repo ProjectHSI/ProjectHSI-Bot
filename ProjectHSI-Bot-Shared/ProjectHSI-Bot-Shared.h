@@ -19,7 +19,7 @@ extern "C" {
 	 * \param[in] abiVersion The ABI version of the orchestrator.
 	 * \returns A boolean representing if the engine/interface is compatible with the given ABI version. If this is false, the engine will unload the DLL and will the interface will not be initalized.
      */
-	bool __declspec(dllexport) abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
+	bool abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
 
 #ifdef __cplusplus
 }
