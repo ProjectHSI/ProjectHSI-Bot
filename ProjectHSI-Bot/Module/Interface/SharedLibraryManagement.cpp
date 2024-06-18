@@ -23,6 +23,8 @@ static void loadInterface(const std::filesystem::path &interfaceSharedObjectPath
 		return;
 	}
 
+	bool t = false;
+
 	void* object = SDL_LoadObject(interfaceSharedObjectPath.generic_string().c_str());
 
 // Win32 has it's own error messages for if a module fails to load, so we'll macro this out here.
@@ -39,7 +41,10 @@ static void loadInterface(const std::filesystem::path &interfaceSharedObjectPath
 
 	abi_check_func = reinterpret_cast<abi_check_funct>(SDL_LoadFunction(object, "abi_check"));
 
-	abi_check_func({0, 0, 1});
+	t = abi_check_func({0, 0, 1});
+	printf("%i\n", t);
+	t = abi_check_func({0, 0, 2});
+	printf("%i\n", t);
 
 emergen_stop:
 	if (object)
