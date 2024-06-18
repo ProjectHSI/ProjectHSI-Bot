@@ -62,7 +62,7 @@ jobs:
 
       - name: Install OpusFile for MacOS
         if: ${{ matrix.os == 'macos-latest' }}
-        run: apt install opusfile
+        run: brew install opusfile
 
       - name: Configure CMake
         # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
