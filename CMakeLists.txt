@@ -15,7 +15,7 @@ project ("ProjectHSI-Bot")
 block(SCOPE_FOR VARIABLES)
 	set(BUILD_SHARED_LIBS TRUE)
 
-	add_subdirectory("third_pary/doxygen")
+	add_subdirectory("third_party/doxygen")
 
 	#add_subdirectory("third_party/opus")
 
