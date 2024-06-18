@@ -37,7 +37,7 @@ static void loadInterface(const std::filesystem::path &interfaceSharedObjectPath
 
 	abi_check_funct abi_check_func;
 
-	abi_check_func = static_cast<abi_check_funct>(SDL_LoadFunction(object, "abi_check"));
+	abi_check_func = reinterpret_cast<abi_check_funct>(SDL_LoadFunction(object, "abi_check"));
 
 	abi_check_func({0, 0, 1});
 
