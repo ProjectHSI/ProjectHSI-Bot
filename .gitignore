@@ -31,5 +31,8 @@
 *.out
 *.app
 
-out
 .vs
+
+# Output for Doxygen since CMake is bad at controlling Doxygen
+ProjectHSI-Bot-Shared/docs/* # /docs/* so that Doxygen doesn't complain
+/out

@@ -11,21 +11,29 @@ endif()
 
 project ("ProjectHSI-Bot")
 
-# Include third-party dependencies as submodules.
-block(SCOPE_FOR VARIABLES)
-	set(BUILD_SHARED_LIBS TRUE)
+option(ProjectHSIBot_NO_BUILD_TARGETS "Disables all builds targets, and only includes the ProjectHSI-Bot-Shared documentation target. Note that the documentation can be generated without setting this option." FALSE)
 
-	#add_subdirectory("third_party/opus")
+if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 
-	add_subdirectory("third_party/SDL" EXCLUDE_FROM_ALL)
-	add_subdirectory("third_party/SDL_net" EXCLUDE_FROM_ALL)
-	#set(SDL2MIXER_VENDORED OFF) # inconsistent behaviour between platforms lol
-	add_subdirectory("third_party/SDL_mixer" EXCLUDE_FROM_ALL)
-	add_subdirectory("third_party/SDL_ttf" EXCLUDE_FROM_ALL)
-	add_subdirectory("third_party/SDL_image" EXCLUDE_FROM_ALL)
-endblock()
+	# Include third-party dependencies as submodules.
+	block(SCOPE_FOR VARIABLES)
+		set(BUILD_SHARED_LIBS TRUE)
 
-# Include sub-projects.
+		#add_subdirectory("third_party/opus")
+
+		add_subdirectory("third_party/SDL" EXCLUDE_FROM_ALL)
+		add_subdirectory("third_party/SDL_net" EXCLUDE_FROM_ALL)
+		#set(SDL2MIXER_VENDORED OFF) # inconsistent behaviour between platforms lol
+		add_subdirectory("third_party/SDL_mixer" EXCLUDE_FROM_ALL)
+		add_subdirectory("third_party/SDL_ttf" EXCLUDE_FROM_ALL)
+		add_subdirectory("third_party/SDL_image" EXCLUDE_FROM_ALL)
+	endblock()
+
+endif()
+
 add_subdirectory("ProjectHSI-Bot-Shared")
-add_subdirectory("ProjectHSI-Bot-O-GUI")
-add_subdirectory("ProjectHSI-Bot")
+
+if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
+	add_subdirectory("ProjectHSI-Bot-O-GUI")
+	add_subdirectory("ProjectHSI-Bot")
+endif()
