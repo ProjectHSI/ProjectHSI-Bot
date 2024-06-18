@@ -43,7 +43,7 @@ jobs:
           -t ProjectHSI-Bot-Shared-Docs
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: '${{ github.workspace }}/ProjectHSI-Bot-Shared/docs/html'
 
