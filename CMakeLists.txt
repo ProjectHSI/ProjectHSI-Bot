@@ -37,3 +37,5 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 	add_subdirectory("ProjectHSI-Bot-Interface-Default-SDL-GUI")
 	add_subdirectory("ProjectHSI-Bot")
 endif()
+
+include("Doxygen.cmake")
