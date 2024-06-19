@@ -31,9 +31,8 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 
 endif()
 
-add_subdirectory("ProjectHSI-Bot-Shared")
-
 if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
+add_subdirectory("ProjectHSI-Bot-Shared")
 	add_subdirectory("ProjectHSI-Bot-Interface-Default-SDL-GUI")
 	add_subdirectory("ProjectHSI-Bot")
 endif()
