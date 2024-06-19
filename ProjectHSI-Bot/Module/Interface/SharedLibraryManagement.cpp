@@ -23,7 +23,7 @@ static void loadInterface(const std::filesystem::path &interfaceSharedObjectPath
 		return;
 	}
 
-	bool t = false;
+	bool isModuleCompatible = false;
 
 	void* object = SDL_LoadObject(interfaceSharedObjectPath.generic_string().c_str());
 
@@ -34,17 +34,6 @@ static void loadInterface(const std::filesystem::path &interfaceSharedObjectPath
 	#endif
 		goto emergen_stop;
 	}
-
-	typedef bool(*abi_check_funct)(ProjectHSI_Bot_Shared_ABIVersion);
-
-	abi_check_funct abi_check_func;
-
-	abi_check_func = reinterpret_cast<abi_check_funct>(SDL_LoadFunction(object, "abi_check"));
-
-	t = abi_check_func({0, 0, 1});
-	printf("%i\n", t);
-	t = abi_check_func({0, 0, 2});
-	printf("%i\n", t);
 
 emergen_stop:
 	if (object)
