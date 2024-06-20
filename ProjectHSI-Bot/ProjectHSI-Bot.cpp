@@ -13,5 +13,7 @@ int main()
 
 	ProjectHSI_Bot::Module::SharedLibraryManagement::loadModules();
 
+	ProjectHSI_Bot::ApplicationContext::destroy();
+
 	return 0;
 }
