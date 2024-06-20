@@ -12,6 +12,11 @@ namespace ProjectHSI_Bot {
 	namespace Module {
 		namespace ABICheck {
 			/*!
+			\brief This typedef is a type for a function pointer of type ::abi_check.
+			*/
+			typedef bool (*abi_check_funct)(ProjectHSI_Bot_Shared_ABIVersion);
+
+			/*!
 			\brief Performs the ABI Check on a given module.
 
 			This tests whether the module has the `abi_check` function, executes it, and outputs the result.

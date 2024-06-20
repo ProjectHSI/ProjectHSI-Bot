@@ -12,11 +12,6 @@ This module is used for checking the ABI Compatibility of a module.
 #include <ProjectHSI-Bot-Shared-Types.h>
 #include <SDL.h>
 
-/*!
-\brief This typedef is a type for a function pointer of type ::abi_check.
-*/
-typedef bool (*abi_check_funct)(ProjectHSI_Bot_Shared_ABIVersion);
-
 bool ProjectHSI_Bot::Module::ABICheck::performAbiCheck(void *moduleHandle) {
 	abi_check_funct abi_check_func;
 
