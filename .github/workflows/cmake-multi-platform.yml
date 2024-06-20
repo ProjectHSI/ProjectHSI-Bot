@@ -91,35 +91,29 @@ jobs:
           echo "git-commit-hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
           echo "git-branch=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Upload Build Artifact For Windows
+      - name: Copy Build Artifacts For Windows
         if: ${{ matrix.os == 'windows-latest' }}
-        uses: actions/upload-artifact@v4.0.0
-        with:
-          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
-          path: |
-            build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe
-            build/third_party/SDL/Release/SDL2.dll
-          if-no-files-found: error
-          retention-days: 0
+        run: |
+          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
+          copy ${{ github.workspace }}/build/third_party/SDL/Release/SDL2.dll ${{ github.workspace }}/../output/SDL2.dll
 
-      - name: Upload Build Artifact For Linux
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v4.0.0
-        with:
-          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
-          path: |
-            build/ProjectHSI-Bot/ProjectHSI-Bot
-            build/third_party/SDL/libSDL2-2.0.so
-          if-no-files-found: error
-          retention-days: 0
-
-      - name: Upload Build Artifact For MacOS
+      - name: Copy Build Artifacts For MacOS
         if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
+          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/../output/libSDL2-2.0.dylib
+
+      - name: Copy Build Artifacts For Linux
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
+          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/../output/libSDL2-2.0.so
+
+      - name: Upload Build Artifact
         uses: actions/upload-artifact@v4.0.0
         with:
           name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
           path: |
-            build/ProjectHSI-Bot/ProjectHSI-Bot
-            build/third_party/SDL/libSDL2-2.0.dylib
+            ${{ github.workspace }}/../output/
           if-no-files-found: error
           retention-days: 0
