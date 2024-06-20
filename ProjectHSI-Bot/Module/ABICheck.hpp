@@ -1,3 +1,13 @@
+/*!
+\file ProjectHSI-Bot/Module/ABICheck.hpp
+
+\brief This file supplies the `ProjectHSI_Bot::Module::ABICheck` namespace.
+
+This module is used for checking the ABI Compatibility of a module.
+
+\see ProjectHSI-Bot/Module/ABICheck.cpp
+*/
+
 namespace ProjectHSI_Bot {
 	namespace Module {
 		namespace ABICheck {
