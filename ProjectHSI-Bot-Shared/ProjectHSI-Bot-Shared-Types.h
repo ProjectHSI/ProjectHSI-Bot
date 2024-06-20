@@ -9,6 +9,9 @@
 #define ABI_VERSION_X 0
 #define ABI_VERSION_Y 0
 #define ABI_VERSION_Z 1
+#define ABI_VERSION_MAJOR 0
+#define ABI_VERSION_MINOR 0
+#define ABI_VERSION_PATCH 1
 
 /**
  * @brief Used by the orchestrator to communicate it's ABI version to engine/interface.
