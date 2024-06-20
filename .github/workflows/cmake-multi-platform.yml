@@ -7,8 +7,17 @@ on:
     
 
 jobs:
+  build-checkout:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: |
+          echo "test"
+
   build:
     runs-on: ${{ matrix.os }}
+
+    needs: build-checkout
 
     strategy:
       # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations. Consider changing this to true when your workflow is stable.
