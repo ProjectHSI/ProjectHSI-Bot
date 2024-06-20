@@ -1,7 +1,7 @@
 /*!
 \file ProjectHSI-Bot-Shared.h
 
-\brief A C header file which contains the definitions for ::abi_check and it's associated macro. `#ABI_CHECK`.
+\brief A C header file which contains the definitions for ::abi_check and it's associated macro. #ABI_CHECK.
 
 This file also includes ProjectHSI-Bot-Shared-Types.h, where some type definitions are defined.
 */
@@ -28,7 +28,7 @@ extern "C" {
 	\see ABI_CHECK
 	\param[in] abiVersion The ABI version of the orchestrator.
 	\returns A boolean representing if the engine/interface is compatible with the given ABI version. If this is false, the engine will unload the DLL and will the interface will not be initalized.
-     */
+    */
 	bool abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
 
 #ifdef __cplusplus
