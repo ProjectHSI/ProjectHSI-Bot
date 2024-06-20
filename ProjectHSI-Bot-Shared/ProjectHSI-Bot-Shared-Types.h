@@ -6,11 +6,23 @@
 
 #pragma once
 
-#define ABI_VERSION_X 0
-#define ABI_VERSION_Y 0
-#define ABI_VERSION_Z 1
+/*!
+\brief The major version of the ABI, in Semantic Version form.
+
+\see ProjectHSI_Bot_Shared_ABIVersion::major
+*/
 #define ABI_VERSION_MAJOR 0
+/*!
+\brief The minor version of the ABI, in Semantic Version form.
+
+\see ProjectHSI_Bot_Shared_ABIVersion::minor
+*/
 #define ABI_VERSION_MINOR 0
+/*!
+\brief The patch version of the ABI, in Semantic Version form.
+
+\see ProjectHSI_Bot_Shared_ABIVersion::patch
+*/
 #define ABI_VERSION_PATCH 1
 
 /**
