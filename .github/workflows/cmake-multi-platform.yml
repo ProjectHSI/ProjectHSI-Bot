@@ -17,6 +17,15 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Upload Checkout Artifact
+        uses: actions/upload-artifact@v4.0.0
+        with:
+          name: checkout-${{ github.ref }}-${{ github.sha }}
+          path: |
+            ${{ github.workspace }}
+          if-no-files-found: error
+          retention-days: 0
+
   build:
     runs-on: ${{ matrix.os }}
 
@@ -56,29 +65,23 @@ jobs:
             c_compiler: clang
 
     steps:
-      - uses: actions/checkout@v4
-        name: Checkout ProjectHSI-Bot
+      - name: Download pre-checkout
+        uses: actions/download-artifact@4.0.0
         with:
-          submodules: recursive
-
+          name: checkout-${{ github.ref }}-${{ github.sha }}
+          
       - name: Set reusable strings
-        # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
         id: strings
         shell: bash
         run: |
           echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-      #- name: Install OpusFile for Linux
-      #  if: ${{ matrix.os == 'ubuntu-latest' }}
-      #  run: sudo apt-get install libopusfile 0 libopusfile-dev libxmp-dev
-
-      #- name: Install OpusFile for MacOS
-      #  if: ${{ matrix.os == 'macos-latest' }}
-      #  run: brew install opusfile libxmp
+      - uses: actions/checkout@v4
+        name: Checkout ProjectHSI-Bot
+        with:
+          submodules: recursive
 
       - name: Configure CMake
-        # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
-        # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
         run: >
           cmake -B ${{ steps.strings.outputs.build-output-dir }}
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
@@ -87,45 +90,35 @@ jobs:
           -S ${{ github.workspace }}
 
       - name: Build
-        # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
       - name: Test
         working-directory: ${{ steps.strings.outputs.build-output-dir }}
-        # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
-        # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
         run: ctest --build-config ${{ matrix.build_type }}
-
-      - name: Get Commit Hash
-        id: gitcommitinfo
-        shell: bash
-        run: |
-          echo "git-commit-hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-          echo "git-branch=$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Copy Build Artifacts For Windows
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
-          copy ${{ github.workspace }}/build/third_party/SDL/Release/SDL2.dll ${{ github.workspace }}/../output/SDL2.dll
+          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          copy ${{ github.workspace }}/build/third_party/SDL/Release/SDL2.dll ${{ github.workspace }}/dist/SDL2.dll
 
       - name: Copy Build Artifacts For MacOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
-          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
-          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/../output/libSDL2-2.0.dylib
+          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/dist/libSDL2-2.0.dylib
 
       - name: Copy Build Artifacts For Linux
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
-          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/../output/libSDL2-2.0.so
+          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
         with:
-          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
+          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ github.ref }}-${{ github.sha }}
           path: |
-            ${{ github.workspace }}/../output/
+            ${{ github.workspace }}/dist/
           if-no-files-found: error
           retention-days: 0
