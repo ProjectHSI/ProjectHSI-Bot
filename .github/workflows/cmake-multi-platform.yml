@@ -102,13 +102,24 @@ jobs:
           if-no-files-found: error
           retention-days: 0
 
-      - name: Upload Build Artifact For Linux & MacOS
-        if: ${{ matrix.os != 'windows-latest' }}
+      - name: Upload Build Artifact For Linux
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v4.0.0
         with:
           name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
           path: |
             build/ProjectHSI-Bot/ProjectHSI-Bot
-#            build/third_party/SDL/SDL2d.dll
+            build/third_party/SDL/libSDL2-2.0.so
+          if-no-files-found: error
+          retention-days: 0
+
+      - name: Upload Build Artifact For MacOS
+        if: ${{ matrix.os == 'macos-latest' }}
+        uses: actions/upload-artifact@v4.0.0
+        with:
+          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
+          path: |
+            build/ProjectHSI-Bot/ProjectHSI-Bot
+            build/third_party/SDL/libSDL2-2.0.dylib
           if-no-files-found: error
           retention-days: 0
