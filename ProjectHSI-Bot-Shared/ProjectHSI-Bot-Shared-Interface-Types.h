@@ -1,3 +1,9 @@
+/*!
+\file ProjectHSI-Bot-Shared-Interface-Types.h
+
+\brief This C header file includes many types expected to be used in Interface modules.
+*/
+
 #pragma once
 
 /**
