@@ -20,7 +20,7 @@ jobs:
       - name: Upload Checkout Artifact
         uses: actions/upload-artifact@v4.0.0
         with:
-          name: checkout-${{ github.ref }}-${{ github.sha }}
+          name: checkout-${{ github.ref_name }}-${{ github.sha }}
           path: |
             ${{ github.workspace }}
           if-no-files-found: error
@@ -68,7 +68,7 @@ jobs:
       - name: Download pre-checkout
         uses: actions/download-artifact@4.0.0
         with:
-          name: checkout-${{ github.ref }}-${{ github.sha }}
+          name: checkout-${{ github.ref_name }}-${{ github.sha }}
           
       - name: Set reusable strings
         id: strings
@@ -117,7 +117,7 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
         with:
-          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ github.ref }}-${{ github.sha }}
+          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ github.ref_name }}-${{ github.sha }}
           path: |
             ${{ github.workspace }}/dist/
           if-no-files-found: error
