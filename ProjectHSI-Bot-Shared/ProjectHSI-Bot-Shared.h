@@ -1,9 +1,9 @@
 /*!
 \file ProjectHSI-Bot-Shared.h
 
-\brief A C header file which contains the definitions for `abi_check` and it's associated macro. #ABI_CHECK.
+\brief A C header file which contains the definitions for ::abi_check and it's associated macro. `#ABI_CHECK`.
 
-This file also includes `ProjectHSI-Bot-Shared-Types.h`, where some type definitions are defined.
+This file also includes ProjectHSI-Bot-Shared-Types.h, where some type definitions are defined.
 */
 
 #pragma once
