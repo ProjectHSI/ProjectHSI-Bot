@@ -109,7 +109,7 @@ jobs:
           copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/../output/ProjectHSI-Bot.exe
           copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/../output/libSDL2-2.0.so
 
-      - name: Upload Build Artifact
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
         with:
           name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ steps.gitcommitinfo.outputs.git-branch }}-${{ steps.gitcommitinfo.outputs.git-commit-hash }}
