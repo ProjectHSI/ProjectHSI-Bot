@@ -1,6 +1,6 @@
 namespace ProjectHSI_Bot {
 	namespace Module {
-		namespace ABI_Check {
+		namespace ABICheck {
 			/*!
 			\brief Performs the ABI Check on a given module.
 
