@@ -8,11 +8,14 @@ on:
 
 jobs:
   build-checkout:
+    name: Pre-checkout
     runs-on: ubuntu-latest
 
     steps:
-      - run: |
-          echo "test"
+      - uses: actions/checkout@v4
+        name: Checkout ProjectHSI-Bot
+        with:
+          submodules: recursive
 
   build:
     runs-on: ${{ matrix.os }}
