@@ -1,3 +1,13 @@
+/*!
+\file ProjectHSI-Bot/ApplicationContext.cpp
+
+\brief This file supplies the ProjectHSI_Bot::ApplicationContext namespace.
+
+This module provides context about the application environment.
+
+\see ProjectHSI-Bot/ApplicationContext.hpp
+*/
+
 #include "ApplicationContext.hpp"
 #include <cstdio>
 #include <filesystem>
@@ -85,6 +95,16 @@ void ProjectHSI_Bot::ApplicationContext::initalize() {
 	return;
 }
 
-void ProjectHSI_Bot::ApplicationContext::terminate() {
+void ProjectHSI_Bot::ApplicationContext::destroy() {
+	ProjectHSI_Bot::ApplicationContext::basePathPath = std::filesystem::path {};
+	ProjectHSI_Bot::ApplicationContext::basePathString = {};
+	SDL_free(const_cast<void*>(reinterpret_cast<const void*>(ProjectHSI_Bot::ApplicationContext::basePathChar)));
+
+	if (ProjectHSI_Bot::ApplicationContext::prefPathChar != nullptr) {
+		ProjectHSI_Bot::ApplicationContext::prefPathPath = std::filesystem::path {};
+		ProjectHSI_Bot::ApplicationContext::prefPathString = {};
+		SDL_free(const_cast< void * >(reinterpret_cast< const void * >(ProjectHSI_Bot::ApplicationContext::prefPathChar)));
+	}
+
 	return;
 }
