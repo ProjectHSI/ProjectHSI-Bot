@@ -1,3 +1,9 @@
+/*!
+\file ProjectHSI-Bot-Shared/ProjectHSI-Bot-Shared-Types.h
+
+\brief A C header file which contains the definitions for types which are expected to be used in a module and in the orchstrator.
+*/
+
 #pragma once
 
 #define ABI_VERSION_X 0
