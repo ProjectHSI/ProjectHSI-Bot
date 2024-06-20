@@ -105,14 +105,14 @@ jobs:
       - name: Copy Build Artifacts For MacOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
-          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
-          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/dist/libSDL2-2.0.dylib
+          cp ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/dist/libSDL2-2.0.dylib
 
       - name: Copy Build Artifacts For Linux
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          copy ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
-          copy ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
+          cp ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
