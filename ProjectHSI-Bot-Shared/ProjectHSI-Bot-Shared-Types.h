@@ -22,18 +22,24 @@
  * The struct uses the `major.minor.patch`.
  */
 struct ProjectHSI_Bot_Shared_ABIVersion {
-	/**
-     * @brief The major version of the ABI, in Semantic Version form.
+	/*!
+    \brief The major version of the ABI, in Semantic Version form.
+	
+	\see #ABI_VERSION_MAJOR
      */
 	unsigned int major;
 
-	/**
-     * @brief The minor version of the ABI, in Semantic Version form.
+	/*!
+    \brief The minor version of the ABI, in Semantic Version form.
+	
+	\see #ABI_VERSION_MINOR
      */
 	unsigned int minor;
 
-	/**
-     * @brief The patch version of the ABI, in Semantic Version form.
+	/*!
+    \brief The patch version of the ABI, in Semantic Version form.
+
+	\see #ABI_VERSION_PATCH
      */
 	unsigned int patch;
 };
