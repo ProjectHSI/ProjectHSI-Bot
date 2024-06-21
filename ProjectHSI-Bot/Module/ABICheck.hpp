@@ -8,6 +8,8 @@ This module is used for checking the ABI Compatibility of a module.
 \see ProjectHSI-Bot/Module/ABICheck.cpp
 */
 
+#include <ProjectHSI-Bot-Shared-Types.h>
+
 namespace ProjectHSI_Bot {
 	namespace Module {
 		namespace ABICheck {
