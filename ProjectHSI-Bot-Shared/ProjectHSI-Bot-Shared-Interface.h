@@ -1,7 +1,7 @@
 /*!
 \file ProjectHSI-Bot-Shared-Interface.h
 
-\brief This C header file contains declaration expected to be used in every interface module.
+\brief This C header file contains declarations expected to be used in every interface module.
 */
 
 #pragma once
