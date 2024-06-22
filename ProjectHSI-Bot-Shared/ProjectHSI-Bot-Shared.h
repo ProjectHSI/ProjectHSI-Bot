@@ -35,9 +35,9 @@ extern "C" {
 }
 #endif
 
-/**
- * \brief Provides the recommended behaviour for the behaviour of ABI-version checking.
- * 
- * Custom libraries may override the abi_check function to provide different behaviour for different ABI versions.
+/*!
+\brief Provides the recommended behaviour for the behaviour of ABI-version checking.
+
+Custom modules may override the abi_check function to provide different behaviour for different ABI versions.
  */
 #define ABI_CHECK bool abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion) { return (abiVersion.major == ABI_VERSION_MAJOR && abiVersion.minor == ABI_VERSION_MINOR && abiVersion.patch == ABI_VERSION_PATCH); }
