@@ -12,6 +12,7 @@ int main()
 	ProjectHSI_Bot::ApplicationContext::initalize();
 
 	ProjectHSI_Bot::Module::SharedLibraryManagement::loadModules();
+	ProjectHSI_Bot::Module::SharedLibraryManagement::unloadModules();
 
 	ProjectHSI_Bot::ApplicationContext::destroy();
 
