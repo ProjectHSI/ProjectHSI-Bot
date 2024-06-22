@@ -10,14 +10,13 @@ This module is used for checking the ABI Compatibility of a module.
 
 #include "ABICheck.hpp"
 #include <ProjectHSI-Bot-Shared-Types.h>
-#include <SDL.h>
+#include <SDL_loadso.h>
 
 bool ProjectHSI_Bot::Module::ABICheck::performAbiCheck(void *moduleHandle) {
-	ProjectHSI_Bot::Module::ABICheck::abi_check_funct abi_check_func;
+	void *abi_check_func = SDL_LoadFunction(moduleHandle, "abi_check");
 
-	abi_check_func = reinterpret_cast< ProjectHSI_Bot::Module::ABICheck::abi_check_funct >(SDL_LoadFunction(moduleHandle, "abi_check"));
+	if (!abi_check_func)
+		return false;
 
-	bool abi_compatible = abi_check_func({0, 0, 1});
-
-	return true;
+	return reinterpret_cast< ProjectHSI_Bot::Module::ABICheck::abi_check_funct >(abi_check_func)({ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH});
 }
