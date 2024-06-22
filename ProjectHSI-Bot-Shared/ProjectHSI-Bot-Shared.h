@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "SO.h"
 #include "ProjectHSI-Bot-Shared-Types.h"
 
 #ifdef __cplusplus
@@ -26,7 +27,19 @@ extern "C" {
 	\param[in] abiVersion The ABI version of the orchestrator.
 	\returns A boolean representing if the module is compatible with the given ABI version. If this is false, the engine will unload the DLL and will the interface will not be initalized.
     */
-	bool abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
+	bool EXPORT abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
+
+	/*!
+	\brief Used by the orhcestrator to tell the module to initalize.
+
+	\note Initalization must be done here, instead of in the abi_check function.
+	*/
+	void EXPORT init();
+
+	/*!
+	\brief Used by the orhcestrator to tell the module to destroy itself.
+	*/
+	void EXPORT destroy();
 
 #ifdef __cplusplus
 }
@@ -37,4 +50,4 @@ extern "C" {
 
 Custom modules may override the abi_check function to provide different behaviour for different ABI versions.
 */
-#define ABI_CHECK bool abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion) { return (abiVersion.major == ABI_VERSION_MAJOR && abiVersion.minor == ABI_VERSION_MINOR && abiVersion.patch == ABI_VERSION_PATCH); }
+#define ABI_CHECK bool EXPORT abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion) { return (abiVersion.major == ABI_VERSION_MAJOR && abiVersion.minor == ABI_VERSION_MINOR && abiVersion.patch == ABI_VERSION_PATCH); }
