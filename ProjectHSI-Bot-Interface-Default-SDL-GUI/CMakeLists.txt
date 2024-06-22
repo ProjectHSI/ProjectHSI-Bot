@@ -11,9 +11,9 @@ endif()
 
 target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE ProjectHSI-Bot-Shared)
 
-target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2::SDL2)
-target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2_image::SDL2_image)
-target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2_mixer::SDL2_mixer)
-target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2_ttf::SDL2_ttf)
+#target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2::SDL2)
+#target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2_image::SDL2_image)
+#target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2_mixer::SDL2_mixer)
+#target_link_libraries(ProjectHSI-Bot-Interface-Default-SDL-GUI PRIVATE SDL2_ttf::SDL2_ttf)
 
 #target_link_libraries(ProjectHSI-Bot PRIVATE SDL2_net::SDL2_net)
