@@ -13,12 +13,3 @@
 [submodule "third_party/SDL_image"]
 	path = third_party/SDL_image
 	url = https://github.com/libsdl-org/SDL_image
-[submodule "third_party/opus"]
-	path = third_party/opus
-	url = https://gitlab.xiph.org/xiph/opus.git
-[submodule "third_party/doxygen"]
-	path = third_party/doxygen
-	url = https://github.com/doxygen/doxygen.git
-[submodule "third_party/flex"]
-	path = third_party/flex
-	url = https://github.com/westes/flex.git
