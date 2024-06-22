@@ -18,6 +18,7 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 	# Include third-party dependencies as submodules.
 	block(SCOPE_FOR VARIABLES)
 		set(BUILD_SHARED_LIBS TRUE)
+		set(SDL_STATIC TRUE)
 
 		#add_subdirectory("third_party/opus")
 
