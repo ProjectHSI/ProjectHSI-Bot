@@ -14,6 +14,6 @@ if(TARGET SDL2::SDL2main)
     target_link_libraries(ProjectHSI-Bot PRIVATE SDL2::SDL2main)
 endif()
 
-target_link_libraries(ProjectHSI-Bot PRIVATE SDL2::SDL2)
+target_link_libraries(ProjectHSI-Bot PRIVATE SDL2::SDL2-static)
 
 #target_link_libraries(ProjectHSI-Bot PRIVATE SDL2_net::SDL2_net)
