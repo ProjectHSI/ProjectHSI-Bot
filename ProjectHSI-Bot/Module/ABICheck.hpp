@@ -34,7 +34,7 @@ namespace ProjectHSI_Bot {
 			\param[in] moduleHandle The handle of the module returned by `SDL_LoadObject`.
 			\returns Whether the module is compatible.
 			*/
-			bool performAbiCheck(void* moduleHandle);
+			bool performAbiCheck(void *moduleHandle);
 		}
 	}
 }
