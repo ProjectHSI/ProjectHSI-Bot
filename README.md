@@ -1,1 +1,3 @@
 # ProjectHSI-Bot
+
+[![Doxygen](https://github.com/ProjectHSI/ProjectHSI-Bot/actions/workflows/doxygen.yml/badge.svg)](https://github.com/ProjectHSI/ProjectHSI-Bot/actions/workflows/doxygen.yml) [![CMake on multiple platforms](https://github.com/ProjectHSI/ProjectHSI-Bot/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/ProjectHSI/ProjectHSI-Bot/actions/workflows/cmake-multi-platform.yml)
