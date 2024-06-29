@@ -82,7 +82,7 @@ struct ProjectHSI_Bot_Shared_SemanticVersion {
 	/*!
 	\brief The build identifier of whatever this struct represents.
 	*/
-	const char *preRelease {};
+	const char *buildId {};
 };
 
 enum ProjectHSI_Bot_Shared_ModuleInformation_Capabilities {
