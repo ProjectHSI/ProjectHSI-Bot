@@ -33,8 +33,11 @@ extern "C" {
 	\brief Used by the orhcestrator to tell the module to initalize.
 
 	\note Initalization must be done here, instead of in the abi_check function.
+
+	\param[in] orchestratorSemanticVersion The semantic version of the orchestrator.
+	\remark Outside of specific implementation details for work arounds, you probably shouldn't use this field for code flow changes. Instead, you should do this in the abi_check function.
 	*/
-	void EXPORT init();
+	void EXPORT init(ProjectHSI_Bot_Shared_SemanticVersion orchestratorSemanticVersion);
 
 	/*!
 	\brief Used by the orhcestrator to tell the module to destroy itself.

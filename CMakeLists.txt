@@ -43,6 +43,9 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 	add_subdirectory("ProjectHSI-Bot-Shared")
 	add_subdirectory("ProjectHSI-Bot-Interface-Default-SDL-GUI")
 	add_subdirectory("ProjectHSI-Bot")
+
+	#enable_testing()
+	#include("ProjectHSI-Bot-Shared-Tests/CMakeLists.txt")
 endif()
 
 include("Doxygen.cmake")

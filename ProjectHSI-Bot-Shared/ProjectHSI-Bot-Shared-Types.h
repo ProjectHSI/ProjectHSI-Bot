@@ -5,6 +5,7 @@
 */
 
 #pragma once
+#include <cstdint>
 
 /*!
 \brief The major version of the ABI, in Semantic Version form.
@@ -35,23 +36,78 @@ The struct uses the `major.minor.patch`.
 */
 struct ProjectHSI_Bot_Shared_ABIVersion {
 	/*!
-    \brief The major version of the ABI, in Semantic Version form.
-	
+	\brief The major version of the ABI, in Semantic Version form.
+
 	\see #ABI_VERSION_MAJOR
-    */
-	unsigned int major;
+	*/
+	unsigned int major {};
 
 	/*!
-    \brief The minor version of the ABI, in Semantic Version form.
-	
+	\brief The minor version of the ABI, in Semantic Version form.
+
 	\see #ABI_VERSION_MINOR
-    */
-	unsigned int minor;
+	*/
+	unsigned int minor {};
 
 	/*!
-    \brief The patch version of the ABI, in Semantic Version form.
+	\brief The patch version of the ABI, in Semantic Version form.
 
 	\see #ABI_VERSION_PATCH
-    */
-	unsigned int patch;
+	*/
+	unsigned int patch {};
+};
+
+struct ProjectHSI_Bot_Shared_SemanticVersion {
+	/*!
+	\brief The major version of whatever this struct represents.
+	*/
+	unsigned int major {};
+
+	/*!
+	\brief The minor version of whatever this struct represents.
+	*/
+	unsigned int minor {};
+
+	/*!
+	\brief The patch version of whatever this struct represents.
+	*/
+	unsigned int patch {};
+
+	/*!
+	\brief The pre-release identifier of whatever this struct represents.
+	\
+	*/
+	const char *preRelease {};
+
+	/*!
+	\brief The build identifier of whatever this struct represents.
+	*/
+	const char *preRelease {};
+};
+
+enum ProjectHSI_Bot_Shared_ModuleInformation_Capabilities {
+	ProjectHSI_Bot_Shared_ModuleInformation_Capabilities_Engine = 0b001,
+	ProjectHSI_Bot_Shared_ModuleInformation_Capabilities_Interface = 0b010,
+	ProjectHSI_Bot_Shared_ModuleInformation_Capabilities_Board = 0b100
+};
+
+/*!
+\brief Used by the module to sent information about it to the orchestrator.
+
+This struct contains several bits of information about the module, like it's internal name, capabilities, version, and more.
+*/
+struct ProjectHSI_Bot_Shared_ModuleInformation {
+	/*!
+	\brief A C string containing the module's internal identifier.
+	*/
+	const char *name;
+
+	/*!
+	\brief An integer containing the capabilities of the module.
+
+	The list of capabilities for a given module is defined in ProjectHSI_Bot_Shared_ModuleInformation_Capabilities.
+
+	\see ProjectHSI_Bot_Shared_ModuleInformation_Capabilities
+	*/
+	uint_least8_t capabilities;
 };
