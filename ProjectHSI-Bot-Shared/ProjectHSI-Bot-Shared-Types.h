@@ -75,7 +75,6 @@ struct ProjectHSI_Bot_Shared_SemanticVersion {
 
 	/*!
 	\brief The pre-release identifier of whatever this struct represents.
-	\
 	*/
 	const char *preRelease {};
 
@@ -110,4 +109,15 @@ struct ProjectHSI_Bot_Shared_ModuleInformation {
 	\see ProjectHSI_Bot_Shared_ModuleInformation_Capabilities
 	*/
 	uint_least8_t capabilities;
+};
+
+/*!
+\brief Used by the module to achieve bi-directional communication with the orchestrator.
+*/
+struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
+	const ProjectHSI_Bot_Shared_ABIVersion (*getOrchestratorAbiVersion)();
+	const ProjectHSI_Bot_Shared_SemanticVersion (*getOrchestratorSemanticVersion)();
+
+	const char **(*listModules)();
+	const ProjectHSI_Bot_Shared_ModuleInformation (*getModule)();
 };

@@ -6,6 +6,7 @@
 
 #include "ApplicationContext.hpp"
 #include "Module/SharedLibraryManagement.hpp"
+#include "Version.hpp"
 
 int main()
 {

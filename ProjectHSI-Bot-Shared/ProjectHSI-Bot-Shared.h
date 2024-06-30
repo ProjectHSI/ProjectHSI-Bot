@@ -27,20 +27,23 @@ extern "C" {
 	\param[in] abiVersion The ABI version of the orchestrator.
 	\returns A boolean representing if the module is compatible with the given ABI version. If this is false, the engine will unload the DLL and will the interface will not be initalized.
     */
-	bool EXPORT abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
+	bool EXPORT abi_check(ProjectHSI_Bot_Shared_ABIVersion &abiVersion);
 
 	/*!
 	\brief Used by the orhcestrator to tell the module to initalize.
 
 	\note Initalization must be done here, instead of in the abi_check function.
 
-	\param[in] orchestratorSemanticVersion The semantic version of the orchestrator.
-	\remark Outside of specific implementation details for work arounds, you probably shouldn't use this field for code flow changes. Instead, you should do this in the abi_check function.
+	\note There are module-type-specific initalization functions. Initalize those behaviours in those functions instead of here.
+
+	\param[in] orchestratorFunctionPointers Various function pointers from the orchestrator. You should probably store these, as otherwise you'll have no way to communicate bi-directionally with the orchestrator.
 	*/
-	void EXPORT init(ProjectHSI_Bot_Shared_SemanticVersion orchestratorSemanticVersion);
+	void EXPORT init(ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers &orchestratorFunctionPointers);
 
 	/*!
 	\brief Used by the orhcestrator to tell the module to destroy itself.
+
+	\note There are module-type-specific destruction functions. Destroy those behaviours in those functions instead of here.
 	*/
 	void EXPORT destroy();
 

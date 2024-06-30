@@ -64,12 +64,12 @@ namespace ProjectHSI_Bot {
 			/*!
 			\brief This typedef is a type for a function pointer of type ::init.
 			*/
-			typedef void (*init_funct)();
+			typedef void (*init_funct)() noexcept(false);
 
 			/*!
 			\brief This typedef is a type for a function pointer of type ::destroy.
 			*/
-			typedef void (*destroy_funct)();
+			typedef void (*destroy_funct)() noexcept(false);
 		}
 	}
 }
