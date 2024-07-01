@@ -18,14 +18,14 @@ namespace ProjectHSI_Bot {
 
 			\returns The ABI version of the orchestrator.
 			*/
-			ProjectHSI_Bot_Shared_ABIVersion getOrchestratorAbiVersion();
+			ProjectHSI_Bot_Shared_ABIVersion getOrchestratorAbiVersion() noexcept;
 
 			/*!
 			\brief Gets the semantic version of the orchestrator.
 
 			\returns The semantic version of the orchestrator.
 			*/
-			ProjectHSI_Bot_Shared_SemanticVersion getOrchestratorSemanticVersion();
+			ProjectHSI_Bot_Shared_SemanticVersion getOrchestratorSemanticVersion() noexcept;
 		}
 	}
 }
