@@ -19,6 +19,10 @@ extern "C" {
 	This function isn't expected to do anything and will never be called by the orchestrator. It's existence is checked for by the orchestrator, however.
 
 	\warning This function must still be implemented. 
+
+	\remarks
+		Modules may need other dependencies than the defaults ProjectHSI-Bot needs and provides.
+		To avoid accidentally loading a dependency as a regular module (and probably crashing the application in the process) this function's existence is checked for.
 	*/
 	void EXPORT projecthsi_bot_module_prescene();
 
@@ -69,5 +73,8 @@ Custom modules may override the abi_check function to provide different behaviou
 #define ABI_CHECK bool EXPORT abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion) { return (abiVersion.major == ABI_VERSION_MAJOR && abiVersion.minor == ABI_VERSION_MINOR && abiVersion.patch == ABI_VERSION_PATCH); }
 
 /*!
-\brief Provides a dummy implementation of projecthsi_bot_module_prescene
+\brief Provides a dummy implementation of projecthsi_bot_module_prescene.
+
+\warning You must use this macro or reimplement ::projecthsi_bot_module_prescene (although reimplementing it is useless, since the function will never be called).
 */
+#define PROJECTHSI_BOT_MODULE_PRESCENE void EXPORT projecthsi_bot_module_prescene() {}

@@ -10,6 +10,8 @@
 
 using namespace std::chrono_literals;
 
+PROJECTHSI_BOT_MODULE_PRESCENE
+
 ABI_CHECK
 
 static void testFunc() {
