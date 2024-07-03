@@ -76,7 +76,7 @@ jobs:
         run: |
           echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-      - uses: lukka/get-vcpkg@main
+      - uses: lukka/get-vcpkg@master
 
       - name: Configure CMake
         run: >
