@@ -4,6 +4,7 @@
 #include <numbers>
 #include <ProjectHSI-Bot-Shared.h>
 #include <ProjectHSI-Bot-Shared-Interface.h>
+#include <ProjectHSI-Bot-Shared-Types.h>
 #include <SDL.h>
 #include <thread>
 
@@ -40,12 +41,19 @@ static void testFunc() {
 	SDL_DestroyRenderer(sdlRenderer);
 }
 
-void init() {
-	printf("Hello, world!");
+const ProjectHSI_Bot_Shared_ModuleInformation moduleInformation {
+	"ProjectHSI-Bot-Interface-Default-SDL-GUI",
+	ProjectHSI_Bot_Shared_ModuleInformation_Capabilities_Interface
+};
 
-	testFunc();
+const ProjectHSI_Bot_Shared_ModuleInformation init(ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers orchestratorFunctionPointers) {
+	printf("Hello, world!\n");
+
+	//testFunc();
+
+	return moduleInformation;
 }
 
 void destroy() {
-	printf("Goodbye, world!");
+	printf("Goodbye, world!\n");
 }

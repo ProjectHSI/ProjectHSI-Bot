@@ -8,6 +8,7 @@ This module is used for checking the ABI Compatibility of a module.
 \see ProjectHSI-Bot/Module/ABICheck.cpp
 */
 
+#include <cstdint>
 #include <ProjectHSI-Bot-Shared-Types.h>
 
 namespace ProjectHSI_Bot {
@@ -34,7 +35,7 @@ namespace ProjectHSI_Bot {
 			\param[in] moduleHandle The handle of the module returned by `SDL_LoadObject`.
 			\returns Whether the module is compatible.
 			*/
-			bool performAbiCheck(void *moduleHandle);
+			uint_least8_t performAbiCheck(void *moduleHandle);
 		}
 	}
 }

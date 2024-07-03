@@ -30,7 +30,10 @@ void ProjectHSI_Bot::Module::Interface::SharedLibraryManagement::loadInterfaces(
 
 	if (std::filesystem::exists(interfacesPath)) {
 		for (const std::filesystem::directory_entry &entry : std::filesystem::directory_iterator(interfacesPath)) {
-			interfaceSharedObjects.push_back(ProjectHSI_Bot::Module::SharedLibraryManagement::loadModule(entry.path()));
+			void *moduleHandle = ProjectHSI_Bot::Module::SharedLibraryManagement::loadModule(entry.path());
+
+			if (moduleHandle != nullptr)
+				interfaceSharedObjects.push_back(moduleHandle);
 		}
 	}
 
