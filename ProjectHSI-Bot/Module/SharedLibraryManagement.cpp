@@ -25,17 +25,7 @@ This module is a wrapper for Interfaces & Engine loading.
 #include <vector>
 #include <stack>
 
-static void nullModuleTypeFunc(void *_) {
-#ifndef NDEBUG
-	/*throw new std::runtime_error("This type is not meant to be called yet.");*/ return;
-#else
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_WARNING, "Notice",
-		"One of your modules has an incomplete module type on it.\n\n"
-		"This would throw an error if the program was compiled in debug mode.\n\n"
-		"This module's sub-feature will not be loaded.");
-	return;
-#endif
-}
+static void nullModuleTypeFunc(void *_) {}
 
 static void noImplementationNullmoduleTypeFunc(void *_) { }
 
