@@ -92,30 +92,35 @@ jobs:
         run: ctest --build-config ${{ matrix.build_type }}
 
       - name: Create Output Directory
-        run: mkdir ${{ github.workspace }}/dist/
+        run: |
+          mkdir ${{ github.workspace }}/dist/
+          mkdir ${{ github.workspace }}/dist/modules/
 
       - name: Copy Build Artifacts For Windows
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          copy -Path ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe -Destination ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
-          copy -Path ${{ github.workspace }}/build/third_party/SDL/Release/SDL2.dll -Destination ${{ github.workspace }}/dist/SDL2.dll
+          Copy-Item -Path ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe -Destination ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          Copy-Item -Path ${{ github.workspace }}/build/third_party/SDL/Release/SDL2.dll -Destination ${{ github.workspace }}/dist/SDL2.dll
+          Copy-Item -Path ${{ github.workspace }}/build/ProjectHSI-Bot-Interface-Default-SDL-GUI/Release//ProjectHSI-Bot-Interface-Default-SDL-GUI.exe -Destination ${{ github.workspace }}/dist/modules//ProjectHSI-Bot-Interface-Default-SDL-GUI.exe
 
       - name: Copy Build Artifacts For MacOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
           cp ${{ github.workspace }}/build/ProjectHSI-Bot/ProjectHSI-Bot ${{ github.workspace }}/dist/ProjectHSI-Bot
           cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/dist/libSDL2-2.0.dylib
+          cp ${{ github.workspace }}/build/Project-HSI-Bot-Interface-Default-SDL-GUI/ProjectHSI-Bot-Interface-Default-SDL-GUI.dylib ${{ github.workspace }}/dist/modules/ProjectHSI-Bot-Interface-Default-SDL-GUI.dylib
 
       - name: Copy Build Artifacts For Linux
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           cp ${{ github.workspace }}/build/ProjectHSI-Bot/ProjectHSI-Bot ${{ github.workspace }}/dist/ProjectHSI-Bot
           cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
+          cp ${{ github.workspace }}/build/Project-HSI-Bot-Interface-Default-SDL-GUI/ProjectHSI-Bot-Interface-Default-SDL-GUI.so ${{ github.workspace }}/dist/modules/ProjectHSI-Bot-Interface-Default-SDL-GUI.so
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
         with:
-          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ github.ref_name }}-${{ github.sha }}
+          name: ${{ matrix.os }}-${{ matrix.c_compiler }}-${{ github.sha }}
           path: |
             ${{ github.workspace }}/dist/
           if-no-files-found: error
