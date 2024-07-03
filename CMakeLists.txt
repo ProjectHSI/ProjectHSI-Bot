@@ -11,6 +11,8 @@ endif()
 
 project ("ProjectHSI-Bot")
 
+#find_package(zlib CONFIG)
+
 option(ProjectHSIBot_NO_BUILD_TARGETS "Disables all builds targets, and only includes the ProjectHSI-Bot-Shared documentation target (if ssupport). Note that the documentation can still be generated with this option enabled (assuming your system has Doxygen installed)." FALSE)
 option(ProjectHSIBot_SDL_STATIC "Compiles SDL statically. May be good for rapid iteration." NO)
 
@@ -29,7 +31,7 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 
 		#add_subdirectory("third_party/opus")
 
-		add_subdirectory("third_party/SDL" EXCLUDE_FROM_ALL)
+		find_package(sdl2 CONFIG REQUIRED)
 		#add_subdirectory("third_party/SDL_net" EXCLUDE_FROM_ALL)
 		#set(SDL2MIXER_VENDORED ON) # inconsistent behaviour between platforms lol
 		#add_subdirectory("third_party/SDL_mixer" EXCLUDE_FROM_ALL)
