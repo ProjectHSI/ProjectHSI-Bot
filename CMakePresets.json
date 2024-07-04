@@ -117,6 +117,26 @@
 			"name": "macos-x64-debug",
 			"displayName": "MacOS x64 Debug",
 			"inherits": [ "default", "macos", "x64", "debug" ]
+		},
+		{
+			"name": "x64-release",
+			"displayName": "Host-Determined-OS x64 Release",
+			"inherits": [ "default", "x64", "release" ]
+		},
+		{
+			"name": "x86-release",
+			"displayName": "Host-Determined-OS x64 Release",
+			"inherits": [ "default", "x86", "release" ]
+		},
+		{
+			"name": "x64-debug",
+			"displayName": "Host-Determined-OS x64 Debug",
+			"inherits": [ "default", "x64", "debug" ]
+		},
+		{
+			"name": "x86-debug",
+			"displayName": "Host-Determined-OS x86 Debug",
+			"inherits": [ "default", "x86", "debug" ]
 		}
 	]
 }
