@@ -8,7 +8,7 @@
 			"binaryDir": "${sourceDir}/out/build/${presetName}",
 			"installDir": "${sourceDir}/out/install/${presetName}",
 			"cacheVariables": {
-				"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
+				"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
 			}
 		},
 		{
@@ -71,52 +71,52 @@
 		{
 			"name": "windows-x64-release",
 			"displayName": "Windows x64 Release",
-			"inherits": [ "windows", "x64", "release" ]
+			"inherits": [ "default", "windows", "x64", "release" ]
 		},
 		{
 			"name": "windows-x86-release",
 			"displayName": "Windows x86 Release",
-			"inherits": [ "windows", "x86", "release" ]
+			"inherits": [ "default", "windows", "x86", "release" ]
 		},
 		{
 			"name": "windows-x64-debug",
 			"displayName": "Windows x64 Debug",
-			"inherits": [ "windows", "x64", "debug" ]
+			"inherits": [ "default", "windows", "x64", "debug" ]
 		},
 		{
 			"name": "windows-x86-debug",
 			"displayName": "Windows x86 Debug",
-			"inherits": [ "windows", "x86", "debug" ]
+			"inherits": [ "default", "windows", "x86", "debug" ]
 		},
 		{
 			"name": "linux-x64-release",
 			"displayName": "Linux x64 Release",
-			"inherits": [ "linux", "x64", "release" ]
+			"inherits": [ "default", "linux", "x64", "release" ]
 		},
 		{
 			"name": "linux-x86-release",
 			"displayName": "Linux x86 Release",
-			"inherits": [ "linux", "x86", "release" ]
+			"inherits": [ "default", "linux", "x86", "release" ]
 		},
 		{
 			"name": "linux-x64-debug",
 			"displayName": "Linux x64 Debug",
-			"inherits": [ "linux", "x64", "debug" ]
+			"inherits": [ "default", "linux", "x64", "debug" ]
 		},
 		{
 			"name": "linux-x86-debug",
 			"displayName": "Linux x86 Debug",
-			"inherits": [ "linux", "x86", "debug" ]
+			"inherits": [ "default", "linux", "x86", "debug" ]
 		},
 		{
 			"name": "macos-x64-release",
 			"displayName": "MacOS x64 Release",
-			"inherits": [ "macos", "x64", "release" ]
+			"inherits": [ "default", "macos", "x64", "release" ]
 		},
 		{
 			"name": "macos-x64-debug",
 			"displayName": "MacOS x64 Debug",
-			"inherits": [ "macos", "x64", "debug" ]
+			"inherits": [ "default", "macos", "x64", "debug" ]
 		}
 	]
 }
