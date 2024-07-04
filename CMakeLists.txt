@@ -3,7 +3,7 @@
 #
 cmake_minimum_required(VERSION 3.29 FATAL_ERROR)
 
-message(VERBOSE "CMake Toolchain File: ${CMAKE_TOOLCHAIN_FILE}")
+message(NOTICE "CMake Toolchain File: ${CMAKE_TOOLCHAIN_FILE}")
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
