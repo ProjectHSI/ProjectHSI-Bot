@@ -11,7 +11,7 @@ target_link_libraries(ProjectHSI-Bot PRIVATE ProjectHSI-Bot-Shared)
 
 target_link_libraries(ProjectHSI-Bot
     PRIVATE
-    $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
+#    $<TARGET_NAME_IF_EXISTS:SDL2::SDL2main>
     $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 )
 
