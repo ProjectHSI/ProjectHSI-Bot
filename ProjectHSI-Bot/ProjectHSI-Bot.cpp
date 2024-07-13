@@ -8,6 +8,8 @@
 #include "Module/SharedLibraryManagement.hpp"
 #include "Version.hpp"
 
+#include "Logger.hpp"
+
 int main()
 {
 	ProjectHSI_Bot::ApplicationContext::initalize();
