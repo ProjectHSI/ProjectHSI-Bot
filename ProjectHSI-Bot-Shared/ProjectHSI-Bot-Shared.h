@@ -75,6 +75,6 @@ Custom modules may override the abi_check function to provide different behaviou
 /*!
 \brief Provides a dummy implementation of projecthsi_bot_module_prescene.
 
-\warning You must use this macro or reimplement ::projecthsi_bot_module_prescene (although reimplementing it is useless, since the function will never be called).
+\warning You must use this macro or reimplement ::projecthsi_bot_module_prescene (although reimplementing it is pointless, since the function will never be called).
 */
 #define PROJECTHSI_BOT_MODULE_PRESCENE void EXPORT projecthsi_bot_module_prescene() {}
