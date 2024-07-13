@@ -127,42 +127,42 @@ namespace ProjectHSI_Bot {
 		void log(const LogStruct &logStruct, std::string logMessage, std::string logSource);
 
 		/*!
-		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
-		\see ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\see ::ProjectHSI_Bot::CLogger::log
 		*/
 		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogLevel logLevel, const char *logMessage, std::string logSource) {
 			log(moduleLogLevelMap.at(logLevel), std::string(logMessage), logSource);
 		}
 		/*!
-		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
-		\see ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\see ::ProjectHSI_Bot::CLogger::log
 		*/
 		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogStruct &logStruct, const char *logMessage, std::string logSource) {
 			log(LogStruct(logStruct), std::string(logMessage), logSource);
 		}
 
 		/*!
-		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
-		\see ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\see ::ProjectHSI_Bot::CLogger::log
 		*/
 		inline void log(const LogLevel logLevel, std::string logMessage, const std::source_location logSource = std::source_location::current()) {
 			return log(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource));
 		}
 		/*!
-		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
-		\see ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\see ::ProjectHSI_Bot::CLogger::log
 		*/
 		inline void log(const LogLevel logLevel, std::string logMessage, std::string logSource) {
 			return log(logLevelMap.at(logLevel), logMessage, logSource);
 		}
 		/*!
-		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
-		\see ::ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource)
+		\see ::ProjectHSI_Bot::CLogger::log
 		*/
 		inline void log(const LogStruct &logStruct, std::string logMessage, const std::source_location logSource = std::source_location::current()) {
 			return log(logStruct, logMessage, getSourceLocationString(logSource));
