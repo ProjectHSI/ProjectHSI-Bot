@@ -33,14 +33,14 @@ namespace ProjectHSI_Bot {
 
 			\see ProjectHSI_Bot::Module::Interface::SharedLibraryManagement::loadInterfaces
 			*/
-			void loadModules();
+			void loadModules() noexcept(true);
 
 			/*!
 			\brief Unloads all modules. Unloading behaviour is defined by the respective sub-functions this calls.
 
 			\see ProjectHSI_Bot::Module::Interface::SharedLibraryManagement::unloadInterfaces
 			*/
-			void unloadModules();
+			void unloadModules() noexcept(true);
 
 			/*!
 			\brief A commonly used struct for passing around a module.
