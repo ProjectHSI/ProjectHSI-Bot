@@ -52,4 +52,4 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 	#include("ProjectHSI-Bot-Shared-Tests/CMakeLists.txt")
 endif()
 
-include("Doxygen.cmake")
+include("ProjectHSI-Bot-Docs/Doxygen.cmake")
