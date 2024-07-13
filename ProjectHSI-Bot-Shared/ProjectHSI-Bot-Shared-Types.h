@@ -5,7 +5,8 @@
 */
 
 #pragma once
-#include <cstdint>
+#include <stdint.h>
+#include <stdio.h>
 
 /*!
 \brief The major version of the ABI, in Semantic Version form.
