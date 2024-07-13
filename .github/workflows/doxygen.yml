@@ -34,7 +34,7 @@ jobs:
           cmake -B ${{ github.workspace }}/build
           -DCMAKE_CXX_COMPILER=clang++
           -DCMAKE_C_COMPILER=clang
-          -DCMAKE_BUILD_TYPE=RELEASE
+          --preset x64-release
           -DProjectHSIBot_NO_BUILD_TARGETS=YES
           -S ${{ github.workspace }}
 
@@ -46,7 +46,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: '${{ github.workspace }}/build/docs/html'
+          path: '${{ github.workspace }}/out/build/x64-release/ProjectHSI-Bot-Docs/HTML'
 
   deploy:
     environment:
