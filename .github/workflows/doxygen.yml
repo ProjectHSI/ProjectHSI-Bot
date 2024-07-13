@@ -43,6 +43,8 @@ jobs:
           cmake --build ${{ github.workspace }}/build
           -t ProjectHSI-Bot-Docs
 
+      - run: ls -Ral
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
