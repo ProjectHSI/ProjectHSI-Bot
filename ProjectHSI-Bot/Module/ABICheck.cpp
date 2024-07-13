@@ -15,7 +15,7 @@ This module is used for checking the ABI Compatibility of a module.
 #include <SDL_loadso.h>
 #include <stdio.h>
 
-uint_least8_t ProjectHSI_Bot::Module::ABICheck::performAbiCheck(void *moduleHandle) {
+uint_least8_t ProjectHSI_Bot::Module::ABICheck::performAbiCheck(void *moduleHandle) noexcept(true) {
 	if (!SDL_LoadFunction(moduleHandle, "projecthsi_bot_module_prescene"))
 		return 2;
 
@@ -26,7 +26,13 @@ uint_least8_t ProjectHSI_Bot::Module::ABICheck::performAbiCheck(void *moduleHand
 
 	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Checking module ABI...");
 
-	bool abiCheckResult = static_cast< uint_least8_t >(!reinterpret_cast< ProjectHSI_Bot::Module::ABICheck::abi_check_funct >(abi_check_func)({ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH}));
+	uint_least8_t abiCheckResult;
+
+	try {
+		abiCheckResult = static_cast< uint_least8_t >(!reinterpret_cast< ProjectHSI_Bot::Module::ABICheck::abi_check_funct >(abi_check_func)({ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH}));
+	} catch (...) {
+		abiCheckResult = 1;
+	}
 
 	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Checked module ABI.");
 
