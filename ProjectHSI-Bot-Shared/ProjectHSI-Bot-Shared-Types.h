@@ -113,11 +113,68 @@ struct ProjectHSI_Bot_Shared_ModuleInformation {
 };
 
 /*!
+\brief Log level struct used by CLogger, intentionally placed here for modules to use.
+
+You probably won't need this, the log levels in ::ProjectHSI_Bot_Shared_CLogger_LogLevel should do fine.
+Internally, the log levels in ::ProjectHSI_Bot_Shared_CLogger_LogLevel map to this struct. See the definitions in ProjectHSI-Bot/Logger.hpp.
+*/
+struct ProjectHSI_Bot_Shared_CLogger_LogStruct {
+	/*!
+	\brief Visibility setting of the log level. Used to determine whether thee log level should be printed to the console.
+	*/
+	uint_least16_t logLevel;
+
+	/*!
+	\brief The prefix of the log level, which will be in brackets to identify it.
+	*/
+	const char *logPrefix;
+
+	/*!
+	\brief A prefix which is added to the beginning of the entire log.
+
+	This property is expected to be used for ASCII text docorations to make logs identifiable. This is a standard string and no special rules apply.
+	*/
+	const char *asciiPrefix;
+
+	/*!
+	\brief If set to true, will direct the log to stderr instead of stdout.
+	*/
+	bool stderrRedirect;
+};
+
+/*!
+\brief Log levels used by CLogger, intentionally placed here for modules to use.
+*/
+enum ProjectHSI_Bot_Shared_CLogger_LogLevel {
+	ERROR,
+	WARNING,
+	INFORMATION,
+	VERBOSE,
+	DEBUG,
+	TRACE
+};
+
+/*!
 \brief Used by the module to achieve bi-directional communication with the orchestrator.
 */
 struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 	const ProjectHSI_Bot_Shared_ABIVersion (*getOrchestratorAbiVersion)();
 	const ProjectHSI_Bot_Shared_SemanticVersion (*getOrchestratorSemanticVersion)();
+
+	/*!
+	\brief The standard variant of the log function.
+
+	The first parameter is the message. The second one is the log level.
+	\see ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers::logStruct
+	*/
+	const void (*log)(const char *, ProjectHSI_Bot_Shared_CLogger_LogLevel);
+	/*!
+	\brief The standard variant of the log function.
+
+	The first parameter is the message. The second one is the log struct.
+	\see ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers::log
+	*/
+	const void (*logStruct)(const char *, ProjectHSI_Bot_Shared_CLogger_LogStruct);
 
 	const char **(*listModules)();
 	const ProjectHSI_Bot_Shared_ModuleInformation (*getModule)();
