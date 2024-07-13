@@ -1,3 +1,13 @@
+/*!
+\file ProjectHSI-Bot/Logger.cpp
+
+\brief Defines various logging functions.
+
+This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the informal CLogger standard.
+
+\see ProjectHSI-Bot/Logger.hpp
+*/
+
 #include "Logger.hpp"
 #include <chrono>
 #include <cstdio>
