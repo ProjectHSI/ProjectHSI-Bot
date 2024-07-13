@@ -116,7 +116,7 @@ struct ProjectHSI_Bot_Shared_ModuleInformation {
 \brief Log level struct used by CLogger, intentionally placed here for modules to use.
 
 You probably won't need this, the log levels in ::ProjectHSI_Bot_Shared_CLogger_LogLevel should do fine.
-Internally, the log levels in ::ProjectHSI_Bot_Shared_CLogger_LogLevel map to this struct. See the definitions in ProjectHSI-Bot/Logger.hpp.
+Internally, the log levels in ::ProjectHSI_Bot_Shared_CLogger_LogLevel map to this struct. See the definitions in ::ProjectHSI_Bot::CLogger::moduleLogLevelMap.
 */
 struct ProjectHSI_Bot_Shared_CLogger_LogStruct {
 	/*!

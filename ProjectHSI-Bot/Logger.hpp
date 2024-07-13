@@ -94,6 +94,9 @@ namespace ProjectHSI_Bot {
 			TRACE
 		};
 
+		/*!
+		\brief Maps a ::ProjectHSI_Bot::CLogger::LogLevel to a ::ProjectHSI_Bot::CLogger::LogStruct.
+		*/
 		const std::map<LogLevel, LogStruct> logLevelMap {{
 			{ERROR, {1, "Error", "\033[0m\033[0;101m\033[1;90m", true}},
 			{WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m", false}},
@@ -103,7 +106,10 @@ namespace ProjectHSI_Bot {
 			{TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m", false}}
 		}};
 
-		const std::map<ProjectHSI_Bot_Shared_CLogger_LogLevel,LogStruct> moduleLogLevelMap {{
+		/*!
+		\brief Maps a ::ProjectHSI_Bot_Shared_CLogger_LogLevel to a ::ProjectHSI_Bot::CLogger::LogStruct.
+		*/
+		const std::map<ProjectHSI_Bot_Shared_CLogger_LogLevel, LogStruct> moduleLogLevelMap {{
 			{ProjectHSI_Bot_Shared_CLogger_LogLevel::ERROR, {1, "Error", "\033[0m\033[0;101m\033[1;90m", true}},
 			{ProjectHSI_Bot_Shared_CLogger_LogLevel::WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m", false}},
 			{ProjectHSI_Bot_Shared_CLogger_LogLevel::INFORMATION, {200, "Information", "\033[0m\033[40m\033[0;37m", false}},
