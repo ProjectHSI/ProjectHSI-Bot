@@ -77,7 +77,7 @@ jobs:
 
       - name: Update C++ Standard Library
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: apt update libc++-dev
+        run: apt-get upgrade libc++-dev
 
       - name: Download pre-checkout
         uses: actions/download-artifact@v4.1.7
