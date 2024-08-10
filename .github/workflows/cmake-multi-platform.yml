@@ -112,9 +112,9 @@ jobs:
       - name: Copy Build Artifacts For Windows
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/Release/* -Destination ${{ github.workspace }}/dist/
+          Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/${{ matrix.build_type }}/* -Destination ${{ github.workspace }}/dist/
           #Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/third_party/SDL/Release/SDL2.dll -Destination ${{ github.workspace }}/dist/SDL2.dll
-          Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot-Interface-Default-SDL-GUI/Release/* -Destination ${{ github.workspace }}/dist/modules/
+          Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot-Interface-Default-SDL-GUI/${{ matrix.build_type }}/* -Destination ${{ github.workspace }}/dist/modules/
 
       - name: Copy Build Artifacts For MacOS
         if: ${{ matrix.os == 'macos-latest' }}
