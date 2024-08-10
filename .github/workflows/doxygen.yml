@@ -44,6 +44,7 @@ jobs:
           --preset x64-release
           -DProjectHSIBot_NO_BUILD_TARGETS=YES
           -DCMAKE_TOOLCHAIN_FILE=""
+          -DCLANG_ASSISTED_PARSING=YES
           -S ${{ github.workspace }}
 
       - name: Build Docs
@@ -54,7 +55,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: '${{ github.workspace }}/build/HPCM-Docs/HTML'
+          path: '${{ github.workspace }}/build/ProjectHSI-Bot-Docs/HTML'
 
   deploy:
     environment:
