@@ -33,7 +33,7 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 
 		#add_subdirectory("third_party/opus")
 
-		find_package(sdl2 CONFIG REQUIRED)
+		find_package(SDL2 CONFIG REQUIRED)
 		#add_subdirectory("third_party/SDL_net" EXCLUDE_FROM_ALL)
 		#set(SDL2MIXER_VENDORED ON) # inconsistent behaviour between platforms lol
 		#add_subdirectory("third_party/SDL_mixer" EXCLUDE_FROM_ALL)
