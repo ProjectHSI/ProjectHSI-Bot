@@ -138,7 +138,7 @@ namespace ProjectHSI_Bot {
 		#ifdef _MSC_VER
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
 		#else
-			return "(Source location formatting is not supported yet on " LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID ".)",
+			return "(Source location formatting is not supported yet on " LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID ".)";
 		#endif
 		}
 
