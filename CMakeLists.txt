@@ -39,6 +39,7 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 		#add_subdirectory("third_party/SDL_mixer" EXCLUDE_FROM_ALL)
 		#add_subdirectory("third_party/SDL_ttf" EXCLUDE_FROM_ALL)
 		#add_subdirectory("third_party/SDL_image" EXCLUDE_FROM_ALL)
+		find_package(SDL2PP REQUIRED)
 	endblock()
 
 endif()

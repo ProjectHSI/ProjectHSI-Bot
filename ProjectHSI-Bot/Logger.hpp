@@ -128,7 +128,13 @@ namespace ProjectHSI_Bot {
 		}
 
 		/*!
-		\brief The other inline functions map to this and let you use this function more conveniently.
+		\brief Logs a CLogger-style message to stdout and stderr.
+		
+		The other inline functions map to this and let you use this function more conveniently.
+
+		\param[in] logStruct The log struct defining the log level and related properties.
+		\param[in] logMessage The log message.
+		\param[in] logSource The source of the log message.
 		*/
 		void log(const LogStruct &logStruct, std::string logMessage, std::string logSource);
 

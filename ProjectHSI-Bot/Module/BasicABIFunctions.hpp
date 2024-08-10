@@ -10,7 +10,10 @@ These functions are expected to be used in the ::ProjectHSI_Bot_Shared_Orchestra
 \see ProjectHSI-Bot/Module/BasicABIFunctions.hpp
 */
 
+#include <functional>
 #include <ProjectHSI-Bot-Shared-Types.h>
+#include <string>
+#include <cstdbool>
 
 namespace ProjectHSI_Bot {
 	namespace Module {
@@ -28,6 +31,8 @@ namespace ProjectHSI_Bot {
 			\returns The semantic version of the orchestrator.
 			*/
 			ProjectHSI_Bot_Shared_SemanticVersion getOrchestratorSemanticVersion() noexcept(true);
+			std::function<void(const char *, ProjectHSI_Bot_Shared_CLogger_LogLevel)> getLogLevelLogFunction(std::string moduleName) noexcept(true);
+			std::function<void(const char *, ProjectHSI_Bot_Shared_CLogger_LogStruct)> getLogStructLogFunction(std::string moduleName) noexcept(true);
 		}
 	}
 }

@@ -94,11 +94,11 @@ enum ProjectHSI_Bot_Shared_ModuleInformation_Capabilities {
 /*!
 \brief Used by the module to sent information about it to the orchestrator.
 
-This struct contains several bits of information about the module, like it's internal name, capabilities, version, and more.
+This struct contains several bits of information about the module, like it's name, capabilities, version, and more.
 */
 struct ProjectHSI_Bot_Shared_ModuleInformation {
 	/*!
-	\brief A C string containing the module's internal identifier.
+	\brief A C string containing the module's public-facing name (not internal, see #id).
 	*/
 	const char *name;
 
@@ -110,6 +110,34 @@ struct ProjectHSI_Bot_Shared_ModuleInformation {
 	\see ProjectHSI_Bot_Shared_ModuleInformation_Capabilities
 	*/
 	uint_least8_t capabilities;
+
+	/*!
+	\brief A C string containing the module's identifier.
+
+	\warning Changing this could be dangerous. See Module ID Warning.md
+	*/
+	const char *id;
+
+	/*!
+	\brief A C string containing the author name.
+	
+	\warning Changing this could be dangerous. See Module ID Warning.md
+	*/
+	const char *author;
+
+	/*!
+	\brief A C string containing the fork's author name.
+
+	This is a **replacement** for the #author field, but for forks. Unless an application will check for this fork ID, changing it will not do anything, meaning this is a safe way to identify a Fork ID.
+	*/
+	const char *forkAuthor;
+
+	/*!
+	\brief A C string containing the fork ID.
+
+	This fork ID can be anything. Applications should check against this if they're trying to find a fork (although, if your fork contains)
+	*/
+	const char *forkId;
 };
 
 /*!
@@ -178,4 +206,51 @@ struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 
 	const char **(*listModules)();
 	const ProjectHSI_Bot_Shared_ModuleInformation (*getModule)();
+
+	/*!
+	\brief Sends an event into the event queue.
+	
+	\warning This function may block as it accessing a [mutex-locked variable](https://en.cppreference.com/w/cpp/thread/mutex). Consider this before using the function.
+
+	\note There is no guarantee about what "tick" the orchestrator will read the event on. Lock if needed
+	*/
+	const void (*sendEvent)(ProjectHSI_Bot_Shared_Event);
+
+	/*!
+	\brief Sends an event into the event queue. Unlike sendEvent, this function does not block and instead spins a thread to send the event.
+
+	\note There is no guarantee about what "tick" the orchestrator will read the event on. Lock if needed.
+	*/
+	const void (*sendEventAsync)(ProjectHSI_Bot_Shared_Event);
+
+	/*!
+	\brief Locks the event buffer.
+
+	Use this to write multiple event objects that need to be read at their intended timings.
+
+	\warning This locks the event buffer from reading **and writing** by anything other than the module that locked the event buffer.
+
+	\warning Do not set the timeout argument to an excessive value. Since there is no exception handling, the timeout value is used to force an unlock of the buffer in case the thread that locked the buffer has crashed.
+	*/
+	const void (*lockEventBuffer)(uint_least16_t);
+};
+
+enum ProjectHSI_Bot_Shared_Event_Type {
+
+};
+
+/*!
+\brief Used for sending events to the orchestrator.
+
+An event union may only have one event at a time. If you wish to send more events, at once or scheduled, simply send more events. Lock the buffer if needed.
+*/
+union ProjectHSI_Bot_Shared_Event {
+	ProjectHSI_Bot_Shared_Event_Type eventType;
+};
+
+/*!
+\brief A wrapper for a board.
+*/
+struct ProjectHSI_Bot_Shared_Bot {
+
 };

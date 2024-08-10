@@ -18,7 +18,11 @@ extern "C" {
 
 	This function isn't expected to do anything and will never be called by the orchestrator. It's existence is checked for by the orchestrator, however.
 
-	\warning This function must still be implemented. 
+	\warning This function must still be implemented.
+
+	\note
+		This function can really by anything it can have any return type, and any arguments.
+		It's only requirements is that it exists and has C linkage (if compiling with a C++ compiler).
 
 	\remarks
 		Modules may need other dependencies than the defaults ProjectHSI-Bot needs and provides.
@@ -31,10 +35,10 @@ extern "C" {
 	 
 	It is recommended to use the #ABI_CHECK macro to check the ABI version of the orchestrator, but the use of #ABI_CHECK is not required.
 	 
-	\warning You MUST NOT initalize the engine in the abi_check function.
-	Engine initalization is done via a seperate (TBA) call, and the engine initalization MUST be done there, instead in the abi_check function.
+	\warning You MUST NOT initialize anything in the abi_check function.
+	Module initialization MUST be done in the respective, instead in the abi_check function.
 	
-	\note You MAY certain ABI flags in your application with if you wish to use an implementation of this function other than the one provided by #ABI_CHECK
+	\note You MAY initalize certain ABI flags in your application with if you wish to use an implementation of this function other than the one provided by #ABI_CHECK
 	
 	\see ABI_CHECK
 	\param[in] abiVersion The ABI version of the orchestrator.
@@ -43,21 +47,30 @@ extern "C" {
 	bool EXPORT abi_check(ProjectHSI_Bot_Shared_ABIVersion abiVersion);
 
 	/*!
-	\brief Used by the orhcestrator to tell the module to initalize.
+	\brief Pre-initalization routine.
 
-	\note Initalization must be done here, instead of in the abi_check function.
+	Do early pre-initalization routines that don't involve the orchestrator. Don't attempt to do bi-directional communication with the orchestrator here - do that in the ::init function.
 
-	\note There are module-type-specific initalization functions. Initalize those behaviours in those functions instead of here.
-
-	\param[in] orchestratorFunctionPointers Various function pointers from the orchestrator. You should probably store these, as otherwise you'll have no way to communicate bi-directionally with the orchestrator.
 	\returns The module information of the module - should be const, since the orchestrator will never modify this variable.
 	*/
-	const ProjectHSI_Bot_Shared_ModuleInformation EXPORT init(ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers orchestratorFunctionPointers);
+	const ProjectHSI_Bot_Shared_ModuleInformation EXPORT preinit();
+
+	/*!
+	\brief Initalization routine.
+
+	\param[in] orchestratorFunctionPointers Various function pointers from the orchestrator. You should probably store these, as otherwise you'll have no way to communicate bi-directionally with the orchestrator.
+	*/
+	void EXPORT init(ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers orchestratorFunctionPointers);
+
+	/*!
+	\brief Post-initalization routine.
+
+	Not theortically required (and in fact, not needed at all), but if you want to do something here, you can.
+	*/
+	void EXPORT postinit();
 
 	/*!
 	\brief Used by the orchestrator to tell the module to destroy itself.
-
-	\note There are module-type-specific destruction functions. Destroy those behaviours in those functions instead of here.
 	*/
 	void EXPORT destroy();
 

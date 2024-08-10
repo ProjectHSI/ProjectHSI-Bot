@@ -8,6 +8,7 @@
 			"installDir": "${sourceDir}/out/install/${presetName}",
 			"cacheVariables": {
 				"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
+
 			}
 		},
 		{

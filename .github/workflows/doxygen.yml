@@ -48,12 +48,12 @@ jobs:
       - name: Build Docs
         run: >
           cmake --build ${{ github.workspace }}/build
-          -t ProjectHSI-Bot-Docs
+          -t HPCM-Docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: '${{ github.workspace }}/build/ProjectHSI-Bot-Docs/HTML'
+          path: '${{ github.workspace }}/build/HPCM-Docs/HTML'
 
   deploy:
     environment:

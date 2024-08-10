@@ -10,6 +10,8 @@ This module is a wrapper for Interfaces & Engine loading.
 
 #include <filesystem>
 #include <ProjectHSI-Bot-Shared-Types.h>
+#include <stdexcept>
+#include <string>
 
 namespace ProjectHSI_Bot {
 	namespace Module {
@@ -42,10 +44,21 @@ namespace ProjectHSI_Bot {
 			*/
 			void unloadModules() noexcept(true);
 
+		#pragma region ModuleBundle
+			/*!
+			\brief The list of module types.
+			*/
+			enum ModuleType {
+				Engine,
+				Interface,
+				Board
+			};
+
 			/*!
 			\brief A commonly used struct for passing around a module.
 			*/
-			struct ModuleBundle {
+			class ModuleBundle {
+			private:
 				/*!
 				\brief A pointer to the shared object behind the module.
 
@@ -58,7 +71,12 @@ namespace ProjectHSI_Bot {
 				
 				\see ::ProjectHSI_Bot_Shared_ModuleInformation
 				*/
-				ProjectHSI_Bot_Shared_ModuleInformation moduleInformation;
+				ProjectHSI_Bot_Shared_ModuleInformation moduleInformation {};
+
+				/*!
+				\brief Boolean value telling when the module information has been discovered.
+				*/
+				bool isModuleInformationDiscovered = false;
 
 				/*!
 				\brief The path of the module.
@@ -66,11 +84,36 @@ namespace ProjectHSI_Bot {
 				std::filesystem::path sharedObjectPath;
 
 				/*!
+				\brief The function pointers provided to the module.
+				*/
+				ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers functionPointers;
+
+				void generateFunctions() const;
+
+			public:
+			#pragma region Casts
+				/*!
 				\brief Returns the handle of the shared object this struct points to.
+
+				\throws std::logic_error Thrown if the shared object this ModuleBundle refers to hasn't been loaded yet. see sharedObjectLoaded() to see if the shared object has been loaded.
 
 				\see sharedObjectHandle
 				*/
-				operator void *() const {
+				operator void *() const noexcept(false) {
+					if (!sharedObjectHandle)
+						throw std::logic_error("Shared object not yet loaded.");
+
+					return sharedObjectHandle;
+				}
+
+				/*!
+				\brief Returns whether the shared object has been loaded.
+
+				\returns Whether the shared object has been loaded yet.
+				*/
+				const bool sharedObjectLoaded() const noexcept(true) {
+					// sharedObjectHandle is implictly converted to bool here -
+					//	if it is non-zero (I.E. the shared object is loaded) this will return true, otherwise false.
 					return sharedObjectHandle;
 				}
 
@@ -86,13 +129,50 @@ namespace ProjectHSI_Bot {
 				/*!
 				\brief Returns the ::ProjectHSI_Bot_Shared_ModuleInformation the module reported during initalization.
 
+				\throws std::logic_error If the module information hasn't been discovered yet.
+
 				\see moduleInformation
 				\see ::ProjectHSI_Bot_Shared_ModuleInformation
 				*/
 				operator ProjectHSI_Bot_Shared_ModuleInformation() const {
+					if (!sharedObjectHandle)
+						throw std::logic_error("Module information not yet discovered.");
+
 					return moduleInformation;
 				}
+
+				const bool moduleInformationDiscovered() const {
+					// sharedObjectHandle is implictly converted to bool here -
+					//	if it is non-zero (I.E. the shared object is loaded) this will return true, otherwise false.
+					return isModuleInformationDiscovered;
+				}
+			#pragma endregion
+
+				/*!
+				\brief Initalizes a moduleType from that module.
+				*/
+				void initalizeModuleTypeOfModule(ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleType moduleType) const;
+
+				/*!
+				\brief Initalizes a module based on the std::filesystem::path.
+
+				This is the recommended way of initalizing the ModuleBundle.
+				*/
+				ModuleBundle(std::filesystem::path path);
+
+				/*!
+				\brief Initalizes a module from a std::string.
+				*/
+				inline ModuleBundle(std::string path) { ModuleBundle(std::filesystem::path(path)); }
+
+				/*!
+				\brief Initalizes a module from a const char *.
+				*/
+				inline ModuleBundle(const char *path) { ModuleBundle(std::filesystem::path(path)); }
+
+				void operator+() const;
 			};
+		#pragma endregion
 
 			/*!
 			\brief Loads an module given the path to it.

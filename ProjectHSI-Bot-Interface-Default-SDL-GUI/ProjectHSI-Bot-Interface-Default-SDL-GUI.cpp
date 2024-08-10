@@ -6,6 +6,7 @@
 #include <ProjectHSI-Bot-Shared-Interface.h>
 #include <ProjectHSI-Bot-Shared-Types.h>
 #include <SDL.h>
+#include <SO.h>
 #include <thread>
 
 using namespace std::chrono_literals;
@@ -48,12 +49,14 @@ const ProjectHSI_Bot_Shared_ModuleInformation moduleInformation {
 	ProjectHSI_Bot_Shared_ModuleInformation_Capabilities_Interface
 };
 
-const ProjectHSI_Bot_Shared_ModuleInformation init(ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers orchestratorFunctionPointers) {
+const ProjectHSI_Bot_Shared_ModuleInformation EXPORT preinit() {
+	return moduleInformation;
+}
+
+void init(ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers orchestratorFunctionPointers) {
 	printf("Hello, world!\n");
 
 	//testFunc();
-
-	return moduleInformation;
 }
 
 void destroy() {
