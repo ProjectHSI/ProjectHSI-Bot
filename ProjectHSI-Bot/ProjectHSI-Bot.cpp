@@ -14,6 +14,8 @@ int main()
 {
 	ProjectHSI_Bot::ApplicationContext::initalize();
 
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Test");
+
 	ProjectHSI_Bot::Module::SharedLibraryManagement::loadModules();
 	ProjectHSI_Bot::Module::SharedLibraryManagement::unloadModules();
 
