@@ -112,23 +112,23 @@ jobs:
       - name: Copy Build Artifacts For Windows
         if: ${{ matrix.os == 'windows-latest' }}
         run: |
-          Copy-Item -Path ${{ github.workspace }}/build/ProjectHSI-Bot/Release/ProjectHSI-Bot.exe -Destination ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
-          Copy-Item -Path ${{ github.workspace }}/build/third_party/SDL/Release/SDL2.dll -Destination ${{ github.workspace }}/dist/SDL2.dll
-          Copy-Item -Path ${{ github.workspace }}/build/ProjectHSI-Bot-Interface-Default-SDL-GUI/Release//ProjectHSI-Bot-Interface-Default-SDL-GUI.exe -Destination ${{ github.workspace }}/dist/modules//ProjectHSI-Bot-Interface-Default-SDL-GUI.exe
+          Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/Release/* -Destination ${{ github.workspace }}/dist/ProjectHSI-Bot.exe
+          #Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/third_party/SDL/Release/SDL2.dll -Destination ${{ github.workspace }}/dist/SDL2.dll
+          Copy-Item -Path ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot-Interface-Default-SDL-GUI/Release/* -Destination ${{ github.workspace }}/dist/modules/
 
       - name: Copy Build Artifacts For MacOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
-          cp ${{ github.workspace }}/build/ProjectHSI-Bot/ProjectHSI-Bot ${{ github.workspace }}/dist/ProjectHSI-Bot
-          cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/dist/libSDL2-2.0.dylib
-          cp ${{ github.workspace }}/build/Project-HSI-Bot-Interface-Default-SDL-GUI/ProjectHSI-Bot-Interface-Default-SDL-GUI.dylib ${{ github.workspace }}/dist/modules/ProjectHSI-Bot-Interface-Default-SDL-GUI.dylib
+          cp ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/ProjectHSI-Bot ${{ github.workspace }}/dist/ProjectHSI-Bot
+          #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.dylib ${{ github.workspace }}/dist/libSDL2-2.0.dylib
+          cp ${{ steps.strings.outputs.build-output-dir }}/Project-HSI-Bot-Interface-Default-SDL-GUI/* ${{ github.workspace }}/dist/modules/
 
       - name: Copy Build Artifacts For Linux
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          cp ${{ github.workspace }}/build/ProjectHSI-Bot/ProjectHSI-Bot ${{ github.workspace }}/dist/ProjectHSI-Bot
-          cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
-          cp ${{ github.workspace }}/build/Project-HSI-Bot-Interface-Default-SDL-GUI/ProjectHSI-Bot-Interface-Default-SDL-GUI.so ${{ github.workspace }}/dist/modules/ProjectHSI-Bot-Interface-Default-SDL-GUI.so
+          cp ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/* ${{ github.workspace }}/dist/
+          #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
+          cp ${{ steps.strings.outputs.build-output-dir }}/Project-HSI-Bot-Interface-Default-SDL-GUI/* ${{ github.workspace }}/dist/modules/
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
