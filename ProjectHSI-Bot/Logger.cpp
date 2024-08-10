@@ -11,12 +11,12 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #include "Logger.hpp"
 #include <chrono>
 #include <cstdio>
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 #include <format>
-#elif __clang__
+#elif defined(__clang__)
 #define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "Clang"
 #pragma warning Time logging in Logger.cpp is not supported on the Clang compiler.
-#elif __GNUC__
+#elif defined(__GNUC__)
 #define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "GCC"
 #pragma warning Time logging in Logger.cpp is not supported on the GCC compiler.
 #else

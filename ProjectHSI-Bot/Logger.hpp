@@ -11,7 +11,18 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #pragma once
 
 #include <cstdint>
+#if defined(_MSC_VER)
 #include <format>
+#elif defined(__clang__)
+#define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "Clang"
+#pragma warning Time logging in Logger.cpp is not supported on the Clang compiler.
+#elif defined(__GNUC__)
+#define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "GCC"
+#pragma warning Time logging in Logger.cpp is not supported on the GCC compiler.
+#else
+#define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "this compiler"
+#pragma warning Time logging in Logger.cpp is not supported on this compiler.
+#endif
 #include <map>
 #include <ProjectHSI-Bot-Shared-Types.h>
 #include <source_location>
@@ -124,7 +135,11 @@ namespace ProjectHSI_Bot {
 		\note Do not use std::source_location::current() here. Instead, pass the source location into the call site, and use *that* for the argument.
 		*/
 		inline std::string getSourceLocationString(const std::source_location logSource) {
+		#ifdef _MSC_VER
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
+		#else
+			return "(Source location formatting is not supported yet on " LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID ".)",
+		#endif
 		}
 
 		/*!
