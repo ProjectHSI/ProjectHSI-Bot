@@ -88,7 +88,7 @@ namespace ProjectHSI_Bot {
 				*/
 				ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers functionPointers;
 
-				void generateFunctions() const;
+				const void generateFunctions() const;
 
 			public:
 			#pragma region Casts
