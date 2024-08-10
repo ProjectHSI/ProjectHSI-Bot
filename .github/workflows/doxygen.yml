@@ -49,7 +49,7 @@ jobs:
       - name: Build Docs
         run: >
           cmake --build ${{ github.workspace }}/build
-          -t HPCM-Docs
+          -t ProjectHSI-Bot-Docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
