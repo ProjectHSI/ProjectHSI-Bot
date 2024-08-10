@@ -236,7 +236,7 @@ struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 };
 
 enum ProjectHSI_Bot_Shared_Event_Type {
-
+	dummy
 };
 
 /*!
