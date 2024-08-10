@@ -182,6 +182,19 @@ enum ProjectHSI_Bot_Shared_CLogger_LogLevel {
 	TRACE
 };
 
+enum ProjectHSI_Bot_Shared_Event_Type {
+	dummy
+};
+
+/*!
+\brief Used for sending events to the orchestrator.
+
+An event union may only have one event at a time. If you wish to send more events, at once or scheduled, simply send more events. Lock the buffer if needed.
+*/
+union ProjectHSI_Bot_Shared_Event {
+	ProjectHSI_Bot_Shared_Event_Type eventType;
+};
+
 /*!
 \brief Used by the module to achieve bi-directional communication with the orchestrator.
 */
@@ -233,19 +246,6 @@ struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 	\warning Do not set the timeout argument to an excessive value. Since there is no exception handling, the timeout value is used to force an unlock of the buffer in case the thread that locked the buffer has crashed.
 	*/
 	const void (*lockEventBuffer)(uint_least16_t);
-};
-
-enum ProjectHSI_Bot_Shared_Event_Type {
-	dummy
-};
-
-/*!
-\brief Used for sending events to the orchestrator.
-
-An event union may only have one event at a time. If you wish to send more events, at once or scheduled, simply send more events. Lock the buffer if needed.
-*/
-union ProjectHSI_Bot_Shared_Event {
-	ProjectHSI_Bot_Shared_Event_Type eventType;
 };
 
 /*!

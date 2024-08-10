@@ -88,7 +88,7 @@ namespace ProjectHSI_Bot {
 				*/
 				ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers functionPointers;
 
-				const void generateFunctions() const;
+				void generateFunctions() const;
 
 			public:
 			#pragma region Casts
@@ -183,7 +183,7 @@ namespace ProjectHSI_Bot {
 			\return A handle to module that was loaded.
 			As described in the SDL2 documentation, the type of the handle is opaque to the application.
 			*/
-			ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle loadModule(std::filesystem::path modulePath) noexcept(true);
+			//ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle loadModule(std::filesystem::path modulePath) noexcept(true);
 
 			/*!
 			\brief Loads an module given the path to it.
@@ -192,7 +192,7 @@ namespace ProjectHSI_Bot {
 
 			\param[in] (moduleHandle A handle to the module to be unloaded.)
 			*/
-			void unloadModule(ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle _module) noexcept(true);
+			//void unloadModule(ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle _module) noexcept(true);
 
 			/*!
 			\brief This typedef is a type for a function pointer of type ::init.
