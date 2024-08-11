@@ -32,8 +32,8 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 void ProjectHSI_Bot::CLogger::log(const LogStruct &logStruct, std::string logMessage, std::string logSource) {
 	// (ascii prefix) [(time)] [(source)] ((level)): (text)\n
 	fprintf(
-		logStruct.stderrRedirect ? stderr : stdout,
-		"%s[%i/%i/%i %i:%i:%i] [%s] (%s): %s\n",
+		logStruct.logLevel < 0 ? stderr : stdout,
+		"%s[%s] [%s] (%s): %s\n",
 		logStruct.asciiPrefix.data(),
 	#ifdef _MSC_VER
 		std::format("{0:%c}", std::chrono::system_clock::now()).data(),

@@ -15,4 +15,6 @@ target_link_libraries(ProjectHSI-Bot
     $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,SDL2::SDL2-static>
 )
 
+target_include_directories(ProjectHSI-Bot PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
 #target_link_libraries(ProjectHSI-Bot PRIVATE SDL2_net::SDL2_net)

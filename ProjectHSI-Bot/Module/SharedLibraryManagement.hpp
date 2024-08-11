@@ -111,10 +111,8 @@ namespace ProjectHSI_Bot {
 
 				\returns Whether the shared object has been loaded yet.
 				*/
-				const bool sharedObjectLoaded() const noexcept(true) {
-					// sharedObjectHandle is implictly converted to bool here -
-					//	if it is non-zero (I.E. the shared object is loaded) this will return true, otherwise false.
-					return sharedObjectHandle;
+				bool sharedObjectLoaded() const noexcept(true) {
+					return sharedObjectHandle != nullptr;
 				}
 
 				/*!
@@ -141,7 +139,7 @@ namespace ProjectHSI_Bot {
 					return moduleInformation;
 				}
 
-				const bool moduleInformationDiscovered() const {
+				bool moduleInformationDiscovered() const {
 					// sharedObjectHandle is implictly converted to bool here -
 					//	if it is non-zero (I.E. the shared object is loaded) this will return true, otherwise false.
 					return isModuleInformationDiscovered;

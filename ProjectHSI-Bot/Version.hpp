@@ -4,9 +4,9 @@
 namespace ProjectHSI_Bot {
 	namespace Version {
 		constexpr struct {
-			unsigned int major {};
-			unsigned int minor {};
-			unsigned int patch {};
+			unsigned long long major {};
+			unsigned long long minor {};
+			unsigned long long patch {};
 
 			std::string_view preRelease {};
 			std::string_view buildId {};

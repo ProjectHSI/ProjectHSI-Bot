@@ -38,9 +38,11 @@ namespace ProjectHSI_Bot {
 		*/
 		struct LogStruct {
 			/*!
-			\brief Visibility setting of the log level. Used to determine whether thee log level should be printed to the console.
+			\brief Visibility setting of the log level. Used to determine whether the log level should be printed to the console.
+
+			This also controls whether the log is directed to stderr. This value should be negative for a redirection.
 			*/
-			uint_least16_t logLevel;
+			unsigned long long logLevel;
 
 			/*!
 			\brief The prefix of the log level, which will be in brackets to identify it.
@@ -55,28 +57,21 @@ namespace ProjectHSI_Bot {
 			std::string asciiPrefix;
 
 			/*!
-			\brief If set to true, will direct the log to stderr instead of stdout.
-			*/
-			bool stderrRedirect;
-
-			/*!
 			\brief Constructs a ::ProjectHSI_Bot::CLogger::LogStruct.
 			*/
-			LogStruct(uint_least8_t logLevel, std::string logPrefix, std::string asciiPrefix, bool stderrRedirect) {
+			LogStruct(unsigned long long logLevel, std::string logPrefix, std::string asciiPrefix) {
 				this->logLevel = logLevel;
 				this->logPrefix = logPrefix;
 				this->asciiPrefix = asciiPrefix;
-				this->stderrRedirect = stderrRedirect;
 			}
 
 			/*!
-			\brief Constructs a ::ProjectHSI_Bot::CLogger::LogStruct, but with the logLevel being a standard int rather than a uint8_least8_t
+			\brief Constructs a ::ProjectHSI_Bot::CLogger::LogStruct, but with the logLevel being a standard int rather than a unsigned long long.
 			*/
-			LogStruct(int logLevel, std::string logPrefix, std::string asciiPrefix, bool stderrRedirect) {
-				this->logLevel = static_cast<uint_least8_t>(logLevel % UINT_LEAST8_MAX);
+			LogStruct(int logLevel, std::string logPrefix, std::string asciiPrefix) {
+				this->logLevel = static_cast< unsigned long long >(logLevel);
 				this->logPrefix = logPrefix;
 				this->asciiPrefix = asciiPrefix;
-				this->stderrRedirect = stderrRedirect;
 			}
 
 			/*!
@@ -86,7 +81,6 @@ namespace ProjectHSI_Bot {
 				this->logLevel = moduleLogStruct.logLevel;
 				this->logPrefix = std::string(moduleLogStruct.logPrefix);
 				this->asciiPrefix = std::string(moduleLogStruct.asciiPrefix);
-				this->stderrRedirect = moduleLogStruct.stderrRedirect;
 			}
 		};
 
@@ -109,24 +103,24 @@ namespace ProjectHSI_Bot {
 		\brief Maps a ::ProjectHSI_Bot::CLogger::LogLevel to a ::ProjectHSI_Bot::CLogger::LogStruct.
 		*/
 		const std::map<LogLevel, LogStruct> logLevelMap {{
-			{ERROR, {1, "Error", "\033[0m\033[0;101m\033[1;90m", true}},
-			{WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m", false}},
-			{INFORMATION, {200, "Information", "\033[0m\033[40m\033[0;37m", false}},
-			{VERBOSE, {300, "Verbose", "\033[0m\033[40m\033[0;35m", false}},
-			{DEBUG, {400, "Debug", "\033[0m\033[40m\033[0;32m", false}},
-			{TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m", false}}
+			{ERROR, {-1, "Error", "\033[0m\033[0;101m\033[1;90m"}},
+			{WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m"}},
+			{INFORMATION, {200, "Information", "\033[0m\033[40m\033[0;37m"}},
+			{VERBOSE, {300, "Verbose", "\033[0m\033[40m\033[0;35m"}},
+			{DEBUG, {400, "Debug", "\033[0m\033[40m\033[0;32m"}},
+			{TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m"}}
 		}};
 
 		/*!
 		\brief Maps a ::ProjectHSI_Bot_Shared_CLogger_LogLevel to a ::ProjectHSI_Bot::CLogger::LogStruct.
 		*/
 		const std::map<ProjectHSI_Bot_Shared_CLogger_LogLevel, LogStruct> moduleLogLevelMap {{
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::ERROR, {1, "Error", "\033[0m\033[0;101m\033[1;90m", true}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m", false}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::INFORMATION, {200, "Information", "\033[0m\033[40m\033[0;37m", false}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::VERBOSE, {300, "Verbose", "\033[0m\033[40m\033[0;35m", false}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::DEBUG, {400, "Debug", "\033[0m\033[40m\033[0;32m", false}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m", false}}
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::ERROR, {-1, "Error", "\033[0m\033[0;101m\033[1;90m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::INFORMATION, {200, "Information", "\033[0m\033[40m\033[0;37m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::VERBOSE, {300, "Verbose", "\033[0m\033[40m\033[0;35m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::DEBUG, {400, "Debug", "\033[0m\033[40m\033[0;32m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m"}}
 		}};
 
 		/*!

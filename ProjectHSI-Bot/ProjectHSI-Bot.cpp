@@ -9,9 +9,12 @@
 #include "Version.hpp"
 
 #include "Logger.hpp"
+#include <iostream>
 
 int main()
 {
+#pragma warning (__cplusplus)
+
 	ProjectHSI_Bot::ApplicationContext::initalize();
 
 	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Test");

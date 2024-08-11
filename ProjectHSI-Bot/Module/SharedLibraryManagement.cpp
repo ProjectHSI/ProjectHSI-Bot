@@ -8,17 +8,18 @@ This module is a wrapper for Interfaces & Engine loading.
 \see ProjectHSI-Bot/Module/SharedLibraryManagement.hpp
 */
 
-#include "../ApplicationContext.hpp"
-#include "../Logger.hpp"
 #include "ABICheck.hpp"
 #include "Interface/SharedLibraryManagement.hpp"
 #include "SharedLibraryManagement.hpp"
+#include "ApplicationContext.hpp"
 #include <array>
+#include <cassert>
 #include <cstdint>
 #include <cstdio>
 #include <filesystem>
 #include <format>
 #include <functional>
+#include "Logger.hpp"
 #include <ProjectHSI-Bot-Shared-Types.h>
 #include <SDL.h>
 #include <SDL_loadso.h>
@@ -30,7 +31,6 @@ This module is a wrapper for Interfaces & Engine loading.
 #include <unordered_map> 
 #include <utility>
 #include <vector>
-#include <cassert>
 
 static void nullModuleTypeFunc(void *_) {}
 
@@ -93,10 +93,10 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 		throw std::runtime_error("File is not a shared object.");
 	}
 
-	void *sharedObjectHandle = SDL_LoadObject(sharedObjectPath.generic_string().c_str());
+	void *sharedObjectHandleFunc = SDL_LoadObject(sharedObjectPath.generic_string().c_str());
 
 	// Win32 has it's own error messages for if a module fails to load, so we'll macro this out here.
-	if (sharedObjectHandle == NULL) {
+	if (sharedObjectHandleFunc == NULL) {
 //	#ifndef WIN32
 		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::ERROR, std::format("Failed to load '{}' due to an error thrown by SDL. This may not be a valid shared object.\nThe error thrown is: {}", sharedObjectPath.filename().generic_string().c_str(), SDL_GetError()));
 //	#endif
@@ -106,27 +106,27 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 		//SDL_UnloadObject(sharedObjectHandle);
 	}
 
-	switch (ProjectHSI_Bot::Module::ABICheck::performAbiCheck(sharedObjectHandle)) {
+	switch (ProjectHSI_Bot::Module::ABICheck::performAbiCheck(sharedObjectHandleFunc)) {
 		case 1:
 			ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::WARNING, std::format("Failed to load '%s' due to it's incompatibility with the current ABI version (%u.%u.%u).\n\n", sharedObjectPath.filename().generic_string().c_str(), ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH));
-			SDL_UnloadObject(sharedObjectHandle);
+			SDL_UnloadObject(sharedObjectHandleFunc);
 
 			throw std::runtime_error("Shared object is not compatible with the current ABI verison.");
 			break;
 
 		case 2:
 			ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("Refusing to load '%s' as it is not a ProjectHSI-Bot module.", sharedObjectPath.filename().generic_string().c_str()));
-			SDL_UnloadObject(sharedObjectHandle);
+			SDL_UnloadObject(sharedObjectHandleFunc);
 
 			throw std::runtime_error("Shared object is not a ProjectHSI-Bot module.");
 			break;
 	}
 
-	void *init_func = SDL_LoadFunction(sharedObjectHandle, "init");
+	void *init_func = SDL_LoadFunction(sharedObjectHandleFunc, "init");
 
 	if (!init_func) {
 		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("No initalization function found for '%s'.\n", sharedObjectPath.filename().generic_string().c_str()));
-		SDL_UnloadObject(sharedObjectHandle);
+		SDL_UnloadObject(sharedObjectHandleFunc);
 		throw std::runtime_error("No initalization function found.");
 	}
 
@@ -135,7 +135,7 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 
 	for (const ModuleTypeFunctionArrayEntry& moduleTypeFunctionMapEntry : moduleTypeFunctionArray) {
 		if (moduleInformation.capabilities & moduleTypeFunctionMapEntry.andOperationOperand)
-			moduleTypeFunctionMapEntry.moduleTypeFunction.first(sharedObjectHandle);
+			moduleTypeFunctionMapEntry.moduleTypeFunction.first(sharedObjectHandleFunc);
 	}
 
 	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("Loaded '{}'.", sharedObjectPath.filename().generic_string().c_str()));
@@ -182,8 +182,8 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::generateFunc
 	ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers functionPointers { };
 
 	// TODO: Replace following lines with respecetive function calls
-	functionPointers.lockEventBuffer = [](uint_least16_t _) -> const void { printf("lockEventBuffer debug trap"); __debugbreak(); };
-	functionPointers.sendEvent = [](ProjectHSI_Bot_Shared_Event _) -> const void { printf("sendEvent debug trap"); __debugbreak(); };
+	//functionPointers.lockEventBuffer = [](uint_least16_t _) -> void { printf("lockEventBuffer debug trap"); __debugbreak(); };
+	//functionPointers.sendEvent = [](ProjectHSI_Bot_Shared_Event _) -> void { printf("sendEvent debug trap"); __debugbreak(); };
 }
 
 #pragma endregion

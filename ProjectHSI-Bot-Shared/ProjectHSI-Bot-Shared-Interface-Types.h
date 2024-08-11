@@ -51,7 +51,7 @@ struct ProjectHSI_Bot_Interface_Info {
 	\deprecated This property is not used, and has no current effect on the interface.
 	            It may be removed in a future ABI version.
     */
-	unsigned char flags;
+	//unsigned char flags;
 
 	/*!
     \brief This struct is a collection of function pointers provided by a GUI-enabled interface to allow engines to draw to a GUI.

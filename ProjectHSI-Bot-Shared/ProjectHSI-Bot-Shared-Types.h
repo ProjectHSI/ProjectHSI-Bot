@@ -41,38 +41,38 @@ struct ProjectHSI_Bot_Shared_ABIVersion {
 
 	\see #ABI_VERSION_MAJOR
 	*/
-	unsigned int major {};
+	unsigned long long major {};
 
 	/*!
 	\brief The minor version of the ABI, in Semantic Version form.
 
 	\see #ABI_VERSION_MINOR
 	*/
-	unsigned int minor {};
+	unsigned long long minor {};
 
 	/*!
 	\brief The patch version of the ABI, in Semantic Version form.
 
 	\see #ABI_VERSION_PATCH
 	*/
-	unsigned int patch {};
+	unsigned long long patch {};
 };
 
 struct ProjectHSI_Bot_Shared_SemanticVersion {
 	/*!
 	\brief The major version of whatever this struct represents.
 	*/
-	unsigned int major {};
+	unsigned long long major {};
 
 	/*!
 	\brief The minor version of whatever this struct represents.
 	*/
-	unsigned int minor {};
+	unsigned long long minor {};
 
 	/*!
 	\brief The patch version of whatever this struct represents.
 	*/
-	unsigned int patch {};
+	unsigned long long patch {};
 
 	/*!
 	\brief The pre-release identifier of whatever this struct represents.
@@ -109,7 +109,7 @@ struct ProjectHSI_Bot_Shared_ModuleInformation {
 
 	\see ProjectHSI_Bot_Shared_ModuleInformation_Capabilities
 	*/
-	uint_least8_t capabilities;
+	unsigned long long capabilities;
 
 	/*!
 	\brief A C string containing the module's identifier.
@@ -150,7 +150,7 @@ struct ProjectHSI_Bot_Shared_CLogger_LogStruct {
 	/*!
 	\brief Visibility setting of the log level. Used to determine whether thee log level should be printed to the console.
 	*/
-	uint_least16_t logLevel;
+	long long logLevel;
 
 	/*!
 	\brief The prefix of the log level, which will be in brackets to identify it.
@@ -163,11 +163,6 @@ struct ProjectHSI_Bot_Shared_CLogger_LogStruct {
 	This property is expected to be used for ASCII text docorations to make logs identifiable. This is a standard string and no special rules apply.
 	*/
 	const char *asciiPrefix;
-
-	/*!
-	\brief If set to true, will direct the log to stderr instead of stdout.
-	*/
-	bool stderrRedirect;
 };
 
 /*!
@@ -199,8 +194,8 @@ union ProjectHSI_Bot_Shared_Event {
 \brief Used by the module to achieve bi-directional communication with the orchestrator.
 */
 struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
-	const ProjectHSI_Bot_Shared_ABIVersion (*getOrchestratorAbiVersion)();
-	const ProjectHSI_Bot_Shared_SemanticVersion (*getOrchestratorSemanticVersion)();
+	ProjectHSI_Bot_Shared_ABIVersion (*getOrchestratorAbiVersion)();
+	ProjectHSI_Bot_Shared_SemanticVersion (*getOrchestratorSemanticVersion)();
 
 	/*!
 	\brief The standard variant of the log function.
@@ -208,17 +203,17 @@ struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 	The first parameter is the message. The second one is the log level.
 	\see ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers::logStruct
 	*/
-	const void (*log)(const char *, ProjectHSI_Bot_Shared_CLogger_LogLevel);
+	void (*log)(const char *, ProjectHSI_Bot_Shared_CLogger_LogLevel);
 	/*!
 	\brief The standard variant of the log function.
 
 	The first parameter is the message. The second one is the log struct.
 	\see ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers::log
 	*/
-	const void (*logStruct)(const char *, ProjectHSI_Bot_Shared_CLogger_LogStruct);
+	void (*logStruct)(const char *, ProjectHSI_Bot_Shared_CLogger_LogStruct);
 
 	const char **(*listModules)();
-	const ProjectHSI_Bot_Shared_ModuleInformation (*getModule)();
+	ProjectHSI_Bot_Shared_ModuleInformation (*getModule)();
 
 	/*!
 	\brief Sends an event into the event queue.
@@ -227,14 +222,14 @@ struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 
 	\note There is no guarantee about what "tick" the orchestrator will read the event on. Lock if needed
 	*/
-	const void (*sendEvent)(ProjectHSI_Bot_Shared_Event);
+	void (*sendEvent)(ProjectHSI_Bot_Shared_Event);
 
 	/*!
 	\brief Sends an event into the event queue. Unlike sendEvent, this function does not block and instead spins a thread to send the event.
 
 	\note There is no guarantee about what "tick" the orchestrator will read the event on. Lock if needed.
 	*/
-	const void (*sendEventAsync)(ProjectHSI_Bot_Shared_Event);
+	void (*sendEventAsync)(ProjectHSI_Bot_Shared_Event);
 
 	/*!
 	\brief Locks the event buffer.
@@ -245,7 +240,7 @@ struct ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers {
 
 	\warning Do not set the timeout argument to an excessive value. Since there is no exception handling, the timeout value is used to force an unlock of the buffer in case the thread that locked the buffer has crashed.
 	*/
-	const void (*lockEventBuffer)(uint_least16_t);
+	void (*lockEventBuffer)(uint_least16_t);
 };
 
 /*!

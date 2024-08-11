@@ -45,6 +45,12 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 endif()
 
 if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
+	if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+		add_compile_options("/Zc:__cplusplus")
+		add_compile_options("/Zc:__STDC__")
+		add_compile_options("/Wall")
+	endif()
+
 	add_subdirectory("ProjectHSI-Bot-Shared")
 	add_subdirectory("ProjectHSI-Bot-Interface-Default-SDL-GUI")
 	add_subdirectory("ProjectHSI-Bot")
