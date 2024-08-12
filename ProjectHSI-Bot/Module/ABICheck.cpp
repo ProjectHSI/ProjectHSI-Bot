@@ -8,7 +8,7 @@ This module is used for checking the ABI Compatibility of a module.
 \see ProjectHSI-Bot/Module/ABICheck.hpp
 */
 
-#include "../Logger.hpp"
+#include "Logger.hpp"
 #include "ABICheck.hpp"
 #include <cstdint>
 #include <ProjectHSI-Bot-Shared-Types.h>
