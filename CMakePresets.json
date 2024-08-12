@@ -22,6 +22,11 @@
 		{
 			"name": "x86",
 			"hidden": true,
+			"condition": {
+				"type": "notEquals",
+				"lhs": "${hostsystemname}",
+				"rhs": "Windows"
+			},
 			"architecture": {
 				"value": "x86",
 				"strategy": "external"
@@ -30,8 +35,13 @@
 		{
 			"name": "Win32",
 			"hidden": true,
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostsystemname}",
+				"rhs": "Windows"
+			},
 			"architecture": {
-				"value": "x86",
+				"value": "Win32",
 				"strategy": "external"
 			}
 		},
