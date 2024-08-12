@@ -24,7 +24,7 @@
 			"hidden": true,
 			"condition": {
 				"type": "notEquals",
-				"lhs": "${hostsystemname}",
+				"lhs": "${hostSystemName}",
 				"rhs": "Windows"
 			},
 			"architecture": {
@@ -37,7 +37,7 @@
 			"hidden": true,
 			"condition": {
 				"type": "equals",
-				"lhs": "${hostsystemname}",
+				"lhs": "${hostSystemName}",
 				"rhs": "Windows"
 			},
 			"architecture": {
