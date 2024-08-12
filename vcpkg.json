@@ -1,6 +1,13 @@
 {
   "dependencies": [
     "sdl2",
-    "sdl2pp"
+    {
+      "name": "sdl2pp",
+      "features": [
+        "sdl2-image",
+        "sdl2-ttf",
+        "sdl2-mixer"
+      ]
+    }
   ]
 }
