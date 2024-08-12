@@ -16,7 +16,9 @@ This module is a wrapper for Interfaces & Engine loading.
 #include <cstdint>
 #include <cstdio>
 #include <filesystem>
+#ifdef _MSC_VER
 #include <format>
+#endif
 #include <functional>
 #include "Logger.hpp"
 #include <ProjectHSI-Bot-Shared-Types.h>
