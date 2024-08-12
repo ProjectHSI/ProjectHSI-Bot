@@ -49,7 +49,10 @@ jobs:
           - debug
         build_arch: 
           - x64
-          - x86
+        #  - x86
+          - Win32
+          - ARM
+          - ARM64
         c_compiler: 
           - gcc
           - clang
