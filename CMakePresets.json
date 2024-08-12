@@ -12,33 +12,6 @@
 			}
 		},
 		{
-			"name": "windows",
-			"hidden": true,
-			"condition": {
-				"type": "equals",
-				"lhs": "${hostSystemName}",
-				"rhs": "Windows"
-			}
-		},
-		{
-			"name": "macos",
-			"hidden": true,
-			"condition": {
-				"type": "equals",
-				"lhs": "${hostSystemName}",
-				"rhs": "Darwin"
-			}
-		},
-		{
-			"name": "linux",
-			"hidden": true,
-			"condition": {
-				"type": "equals",
-				"lhs": "${hostSystemName}",
-				"rhs": "Linux"
-			}
-		},
-		{
 			"name": "x64",
 			"hidden": true,
 			"architecture": {
@@ -51,6 +24,30 @@
 			"hidden": true,
 			"architecture": {
 				"value": "x86",
+				"strategy": "external"
+			}
+		},
+		{
+			"name": "Win32",
+			"hidden": true,
+			"architecture": {
+				"value": "x86",
+				"strategy": "external"
+			}
+		},
+		{
+			"name": "ARM",
+			"hidden": true,
+			"architecture": {
+				"value": "ARM",
+				"strategy": "external"
+			}
+		},
+		{
+			"name": "ARM64",
+			"hidden": true,
+			"architecture": {
+				"value": "ARM64",
 				"strategy": "external"
 			}
 		},
@@ -69,74 +66,54 @@
 			}
 		},
 		{
-			"name": "windows-x64-release",
-			"displayName": "Windows x64 Release",
-			"inherits": [ "default", "windows", "x64", "release" ]
-		},
-		{
-			"name": "windows-x86-release",
-			"displayName": "Windows x86 Release",
-			"inherits": [ "default", "windows", "x86", "release" ]
-		},
-		{
-			"name": "windows-x64-debug",
-			"displayName": "Windows x64 Debug",
-			"inherits": [ "default", "windows", "x64", "debug" ]
-		},
-		{
-			"name": "windows-x86-debug",
-			"displayName": "Windows x86 Debug",
-			"inherits": [ "default", "windows", "x86", "debug" ]
-		},
-		{
-			"name": "linux-x64-release",
-			"displayName": "Linux x64 Release",
-			"inherits": [ "default", "linux", "x64", "release" ]
-		},
-		{
-			"name": "linux-x86-release",
-			"displayName": "Linux x86 Release",
-			"inherits": [ "default", "linux", "x86", "release" ]
-		},
-		{
-			"name": "linux-x64-debug",
-			"displayName": "Linux x64 Debug",
-			"inherits": [ "default", "linux", "x64", "debug" ]
-		},
-		{
-			"name": "linux-x86-debug",
-			"displayName": "Linux x86 Debug",
-			"inherits": [ "default", "linux", "x86", "debug" ]
-		},
-		{
-			"name": "macos-x64-release",
-			"displayName": "MacOS x64 Release",
-			"inherits": [ "default", "macos", "x64", "release" ]
-		},
-		{
-			"name": "macos-x64-debug",
-			"displayName": "MacOS x64 Debug",
-			"inherits": [ "default", "macos", "x64", "debug" ]
-		},
-		{
 			"name": "x64-release",
-			"displayName": "Host-Determined-OS x64 Release",
+			"displayName": "x64 Release",
 			"inherits": [ "default", "x64", "release" ]
 		},
 		{
 			"name": "x86-release",
-			"displayName": "Host-Determined-OS x64 Release",
+			"displayName": "x64 Release",
 			"inherits": [ "default", "x86", "release" ]
 		},
 		{
+			"name": "Win32-release",
+			"displayName": "Win32 Debug",
+			"inherits": [ "default", "Win32", "release" ]
+		},
+		{
+			"name": "ARM-release",
+			"displayName": "ARM Release",
+			"inherits": [ "default", "ARM", "release" ]
+		},
+		{
+			"name": "ARM64-release",
+			"displayName": "ARM64 Release",
+			"inherits": [ "default", "ARM64", "release" ]
+		},
+		{
 			"name": "x64-debug",
-			"displayName": "Host-Determined-OS x64 Debug",
+			"displayName": "x64 Debug",
 			"inherits": [ "default", "x64", "debug" ]
 		},
 		{
 			"name": "x86-debug",
-			"displayName": "Host-Determined-OS x86 Debug",
+			"displayName": "x86 Debug",
 			"inherits": [ "default", "x86", "debug" ]
+		},
+		{
+			"name": "Win32-debug",
+			"displayName": "Win32 Debug",
+			"inherits": [ "default", "Win32", "debug" ]
+		},
+		{
+			"name": "ARM-debug",
+			"displayName": "ARM Debug",
+			"inherits": [ "default", "ARM", "debug" ]
+		},
+		{
+			"name": "ARM64-debug",
+			"displayName": "ARM64 Debug",
+			"inherits": [ "default", "ARM64", "debug" ]
 		}
 	]
 }
