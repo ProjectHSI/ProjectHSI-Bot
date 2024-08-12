@@ -90,9 +90,12 @@ jobs:
       - name: Output Environment Variables
         run: env
 
-      - name: Configure CMake
+      - name: Configure CMake on Windows
+        if: ${{ matrix.os == 'windows-latest' }}
         run: >
-          cmake -B ${{ steps.strings.outputs.build-output-dir }}
+          cmake -G "Visual Studio 17 2022"
+          -A ${{ matrix.build_arch }}
+          -B ${{ steps.strings.outputs.build-output-dir }}
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
