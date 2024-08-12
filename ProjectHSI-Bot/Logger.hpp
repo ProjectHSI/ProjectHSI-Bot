@@ -42,7 +42,7 @@ namespace ProjectHSI_Bot {
 
 			This also controls whether the log is directed to stderr. This value should be negative for a redirection.
 			*/
-			unsigned long long logLevel;
+			long long logLevel;
 
 			/*!
 			\brief The prefix of the log level, which will be in brackets to identify it.
@@ -59,25 +59,28 @@ namespace ProjectHSI_Bot {
 			/*!
 			\brief Constructs a ::ProjectHSI_Bot::CLogger::LogStruct.
 			*/
-			LogStruct(unsigned long long logLevel, std::string logPrefix, std::string asciiPrefix) {
+			LogStruct(const long long& logLevel, const std::string& logPrefix, const std::string& asciiPrefix) {
 				this->logLevel = logLevel;
 				this->logPrefix = logPrefix;
 				this->asciiPrefix = asciiPrefix;
 			}
 
+			// NOTE: Removed since probably not needed.
 			/*!
 			\brief Constructs a ::ProjectHSI_Bot::CLogger::LogStruct, but with the logLevel being a standard int rather than a unsigned long long.
 			*/
-			LogStruct(int logLevel, std::string logPrefix, std::string asciiPrefix) {
+			/*
+			LogStruct(int logLevel, const std::string logPrefix, std::string asciiPrefix) {
 				this->logLevel = static_cast< unsigned long long >(logLevel);
 				this->logPrefix = logPrefix;
 				this->asciiPrefix = asciiPrefix;
 			}
+			*/
 
 			/*!
 			\brief Constructs a ::ProjectHSI_Bot::CLogger::LogStruct from a ::ProjectHSI_Bot_Shared_CLogger_LogStruct.
 			*/
-			LogStruct(ProjectHSI_Bot_Shared_CLogger_LogStruct moduleLogStruct) {
+			LogStruct(const ProjectHSI_Bot_Shared_CLogger_LogStruct& moduleLogStruct) {
 				this->logLevel = moduleLogStruct.logLevel;
 				this->logPrefix = std::string(moduleLogStruct.logPrefix);
 				this->asciiPrefix = std::string(moduleLogStruct.asciiPrefix);

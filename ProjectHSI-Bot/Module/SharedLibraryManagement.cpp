@@ -82,7 +82,7 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::unloadModules() noexcept(t
 #pragma region ModuleBundle
 
 void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() const noexcept(false) {
-	if (this->isModuleInformationDiscovered)
+	if (moduleStatus & SharedLibraryManagement::ModuleStatus::INIT)
 		throw std::logic_error("Module is already loaded and ready - not continuing.");
 
 	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("Loading '{}'...", sharedObjectPath.filename().generic_string().c_str()));
@@ -177,7 +177,7 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::ModuleBundle(std::filesystem::path path) { }
 
 void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::generateFunctions() const {
-	assert(this->isModuleInformationDiscovered);
+	assert(moduleStatus & SharedLibraryManagement::ModuleStatus::PRE_INIT);
 	
 	ProjectHSI_Bot_Shared_Orchestrator_FunctionPointers functionPointers { };
 

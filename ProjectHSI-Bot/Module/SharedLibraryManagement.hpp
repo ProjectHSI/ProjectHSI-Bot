@@ -53,6 +53,48 @@ namespace ProjectHSI_Bot {
 				Interface,
 				Board
 			};
+			
+			/*!
+			\brief This enum describes the module status at a specific time, see #ModuleBundle.moduleStatus.
+
+			This is a bit mask. Use the & operation.
+
+			\note The order of these enums are specific - their order describes the loading process.
+			*/
+			enum ModuleStatus {
+				/*!
+				\brief The module's shared object representation has been loaded.
+				*/
+				LOADED        = 0b1,
+
+				/*!
+				\brief The module has been verified to be an actual module (see #projecthsi_bot_module_prescene)
+				*/
+				MODULE_VERIFY = 0b10,
+
+				/*!
+				\brief The module has been verified to work with the current ProjectHSI-Bot ABI version.
+				*/
+				ABI_VERIFY = 0b100,
+
+				/*!
+				\brief The module has completed pre-initalization.
+
+				When pre-initalization has been completed, the module information has been discovered and can be used.
+
+				See #preinit.
+				*/
+				PRE_INIT = 0b1000,
+
+				/*!
+				\brief The module has completed initalization. The generic initalization phase has been completed and the module is ready to be used.
+
+				See #init.
+
+				\note The #postinit may be called after this flag is set, however the #postinit function does nothing of importance from the orchestrator's side, so this doesn't matter.
+				*/
+				INIT = 0b10000
+			};
 
 			/*!
 			\brief A commonly used struct for passing around a module.
@@ -74,9 +116,9 @@ namespace ProjectHSI_Bot {
 				ProjectHSI_Bot_Shared_ModuleInformation moduleInformation {};
 
 				/*!
-				\brief Boolean value telling when the module information has been discovered.
+				\brief A module status consisting of enum values from #ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleStatus
 				*/
-				bool isModuleInformationDiscovered = false;
+				unsigned long long moduleStatus = 0;
 
 				/*!
 				\brief The path of the module.
@@ -139,10 +181,8 @@ namespace ProjectHSI_Bot {
 					return moduleInformation;
 				}
 
-				bool moduleInformationDiscovered() const {
-					// sharedObjectHandle is implictly converted to bool here -
-					//	if it is non-zero (I.E. the shared object is loaded) this will return true, otherwise false.
-					return isModuleInformationDiscovered;
+				unsigned long long getModuleStatus() const {
+					return moduleStatus;
 				}
 			#pragma endregion
 
