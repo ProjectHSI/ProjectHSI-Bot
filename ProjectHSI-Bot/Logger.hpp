@@ -13,15 +13,6 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #include <cstdint>
 #if defined(_MSC_VER)
 #include <format>
-#elif defined(__clang__)
-#define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "Clang"
-#pragma warning Time logging in Logger.cpp is not supported on the Clang compiler.
-#elif defined(__GNUC__)
-#define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "GCC"
-#pragma warning Time logging in Logger.cpp is not supported on the GCC compiler.
-#else
-#define LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID "this compiler"
-#pragma warning Time logging in Logger.cpp is not supported on this compiler.
 #endif
 #include <map>
 #include <ProjectHSI-Bot-Shared-Types.h>
@@ -135,7 +126,7 @@ namespace ProjectHSI_Bot {
 		#ifdef _MSC_VER
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
 		#else
-			return "(Source location formatting is not supported yet on " LOGGER_TIME_NOT_SUPPORTED_ON_COMPILER_COMPILER_ID ".)";
+			return "?";
 		#endif
 		}
 
@@ -148,14 +139,15 @@ namespace ProjectHSI_Bot {
 		\param[in] logMessage The log message.
 		\param[in] logSource The source of the log message.
 		*/
-		void log(const LogStruct &logStruct, std::string logMessage, std::string logSource);
+		template<typename... Args>
+		void log(const LogStruct &logStruct, const std::string& logMessage, const std::string& logSource, Args... args);
 
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogLevel logLevel, const char *logMessage, std::string logSource) {
+		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogLevel logLevel, const char *logMessage, const std::string& logSource) {
 			log(moduleLogLevelMap.at(logLevel), std::string(logMessage), logSource);
 		}
 		/*!
@@ -163,33 +155,47 @@ namespace ProjectHSI_Bot {
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogStruct &logStruct, const char *logMessage, std::string logSource) {
+		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogStruct &logStruct, const char *logMessage,
+			const std::string& logSource
+		#ifndef _MSC_VER
+			= ""
+		#endif
+		) {
 			log(LogStruct(logStruct), std::string(logMessage), logSource);
 		}
 
+	#ifdef _MSC_VER
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const LogLevel logLevel, std::string logMessage, const std::source_location logSource = std::source_location::current()) {
+		inline void log(const LogLevel logLevel, const std::string& logMessage, const std::source_location& logSource = std::source_location::current()) {
 			return log(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource));
 		}
+	#endif
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const LogLevel logLevel, std::string logMessage, std::string logSource) {
+		inline void log(const LogLevel logLevel, const std::string& logMessage,
+			const std::string& logSource
+		#ifndef _MSC_VER
+		= ""
+		#endif
+		) {
 			return log(logLevelMap.at(logLevel), logMessage, logSource);
 		}
+	#ifdef _MSC_VER
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const LogStruct &logStruct, std::string logMessage, const std::source_location logSource = std::source_location::current()) {
+		inline void log(const LogStruct &logStruct, const std::string& logMessage, const std::source_location& logSource = std::source_location::current()) {
 			return log(logStruct, logMessage, getSourceLocationString(logSource));
 		}
+	#endif
 	}
 }

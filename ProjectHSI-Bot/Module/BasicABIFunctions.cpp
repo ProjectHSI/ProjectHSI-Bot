@@ -1,8 +1,8 @@
-#include "../Version.hpp"
+#include "Version.hpp"
 #include "BasicABIFunctions.hpp"
 #include <functional>
 #include <string>
-#include "../Logger.hpp"
+#include "Logger.hpp"
 
 ProjectHSI_Bot_Shared_ABIVersion ProjectHSI_Bot::Module::BasicABIFunctions::getOrchestratorAbiVersion() noexcept {
 	return ProjectHSI_Bot_Shared_ABIVersion {ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH};

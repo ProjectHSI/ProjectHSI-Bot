@@ -39,7 +39,7 @@ static void noImplementationNullmoduleTypeFunc(void *_) { }
 typedef void (*ModuleTypeFunction)(void *);
 
 struct ModuleTypeFunctionArrayEntry {
-	int andOperationOperand;
+	long long andOperationOperand;
 
 	const char *moduleType;
 
@@ -66,7 +66,7 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::loadModules() noexcept(tru
 				//modules.push_back(moduleBundle);
 		}
 	} else {
-		fprintf(stderr, "The 'modules' directory doesn't exist. This means that no modules will be loaded. Press Control+C to exit the application on the prompt.\n");
+		fprintf(stderr, "The 'modules' directory doesn't exist. This means that no modules will be loaded. Press any key to exit the application on the prompt.\n");
 	}
 }
 
