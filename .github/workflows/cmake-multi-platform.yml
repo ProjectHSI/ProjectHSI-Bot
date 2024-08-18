@@ -61,11 +61,6 @@ jobs:
           - clang++
           - cl
         exclude:
-          - c_compiler: clang
-            cpp_compiler: g++
-          - c_compiler: gcc
-            cpp_compiler: clang++
-
           - os: ubuntu-latest
             build_arch: x86
           - os: ubuntu-latest
@@ -90,6 +85,15 @@ jobs:
             c_compiler: cl
           - os: macos-latest
             c_compiler: clang
+
+          - c_compiler: clang
+            cpp_compiler: g++
+          - c_compiler: gcc
+            cpp_compiler: clang++
+          - c_compiler: cl
+            cpp_compiler: clang++
+          - c_compiler: cl
+            cpp_compiler: g++
 
     steps:
       - name: Export GitHub Actions cache environment variables
