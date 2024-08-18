@@ -126,13 +126,11 @@ namespace ProjectHSI_Bot {
 
 		\note Do not use std::source_location::current() here. Instead, pass the source location into the call site, and use *that* for the argument.
 		*/
+	#if !defined(__clang__)
 		inline std::string getSourceLocationString(const std::source_location logSource) {
-		#if defined(_MSC_VER) && !defined(__clang__)
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
-		#else
-			return "?";
-		#endif
 		}
+	#endif
 
 		/*!
 		\brief Logs a CLogger-style message to stdout and stderr.
@@ -204,7 +202,7 @@ namespace ProjectHSI_Bot {
 			log(LogStruct(logStruct), std::string(logMessage), logSource);
 		}
 
-	#ifdef _MSC_VER
+	#if !defined(__clang__)
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
@@ -229,7 +227,7 @@ namespace ProjectHSI_Bot {
 			, Args... args) {
 			return log(logLevelMap.at(logLevel), logMessage, logSource, &args...);
 		}
-	#ifdef _MSC_VER
+	#if !defined(__clang__)
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
