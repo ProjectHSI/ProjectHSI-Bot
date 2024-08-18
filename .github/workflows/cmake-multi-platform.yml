@@ -118,6 +118,17 @@ jobs:
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
           -S ${{ github.workspace }}
 
+      - name: Configure CMake on Ubuntu
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: >
+          cmake -G "Ninja"
+          -A ${{ matrix.build_arch }}
+          -B ${{ steps.strings.outputs.build-output-dir }}
+          -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
+          -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+          --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
+          -S ${{ github.workspace }}
+
       - name: Build
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
