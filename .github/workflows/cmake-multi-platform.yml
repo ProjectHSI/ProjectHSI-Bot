@@ -171,6 +171,7 @@ jobs:
       - name: Copy Build Artifacts For Linux
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
+          ls -Ra
           cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/* ${{ github.workspace }}/dist/
           #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
           cp -r ${{ steps.strings.outputs.build-output-dir }}/Project-HSI-Bot-Interface-Default-SDL-GUI/* ${{ github.workspace }}/dist/modules/
