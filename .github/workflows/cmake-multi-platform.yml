@@ -38,18 +38,17 @@ jobs:
       fail-fast: false
 
       matrix:
-      # Currently, there is weird issue with Ubuntu (and MacOS as well, but that isn't related) where gcc and clang have issues with <format>.
-      # I've disabled them for this reason.
+      # MacOS is disabled due to configuration errors.
         os:
           - windows-latest
-        #  - ubuntu-latest
-        #  - macos-latest
+          - ubuntu-latest
+          - macos-latest
         build_type: 
           - release
           - debug
         build_arch: 
           - x64
-        #  - x86
+          - x86
           - Win32
           - ARM
           - ARM64
@@ -57,7 +56,13 @@ jobs:
           - gcc
           - clang
           - cl
+        include:
+          - os: ubuntu-latest
+            build_arch: x64
         exclude:
+          - os: ubuntu-latest
+            build_arch: '*'
+
           - os: windows-latest
             c_compiler: gcc
           - os: windows-latest
