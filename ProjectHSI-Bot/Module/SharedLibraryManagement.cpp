@@ -86,10 +86,10 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 	if (moduleStatus & SharedLibraryManagement::ModuleStatus::INIT)
 		throw std::logic_error("Module is already loaded and ready - not continuing.");
 
-	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("Loading '{}'...", sharedObjectPath.filename().generic_string().c_str()));
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Loading '%s'...", sharedObjectPath.filename().generic_string().c_str());
 
 	if (sharedObjectPath.extension() != (std::string(".") + std::string(ProjectHSI_Bot::Module::SharedLibraryManagement::sharedObjectFileExtension))) {
-		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("File '{}' is not a shared object (or doesn't have the '{}' extension). This file will be skipped.", sharedObjectPath.filename().generic_string().c_str(), sharedObjectFileExtension));
+		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "File '%s' is not a shared object (or doesn't have the '%s' extension). This file will be skipped.", sharedObjectPath.filename().generic_string().c_str(), sharedObjectFileExtension);
 
 		throw std::runtime_error("File is not a shared object.");
 	}
@@ -99,7 +99,7 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 	// Win32 has it's own error messages for if a module fails to load, so we'll macro this out here.
 	if (sharedObjectHandleFunc == NULL) {
 //	#ifndef WIN32
-		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::ERROR, std::format("Failed to load '{}' due to an error thrown by SDL. This may not be a valid shared object.\nThe error thrown is: {}", sharedObjectPath.filename().generic_string().c_str(), SDL_GetError()));
+		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::ERROR, "Failed to load '{}' due to an error thrown by SDL. This may not be a valid shared object.\nThe error thrown is: %s", sharedObjectPath.filename().generic_string().c_str(), SDL_GetError());
 //	#endif
 
 		throw std::runtime_error("File is not a shared object.");
@@ -109,14 +109,14 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 
 	switch (ProjectHSI_Bot::Module::ABICheck::performAbiCheck(sharedObjectHandleFunc)) {
 		case 1:
-			ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::WARNING, std::format("Failed to load '%s' due to it's incompatibility with the current ABI version (%u.%u.%u).\n\n", sharedObjectPath.filename().generic_string().c_str(), ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH));
+			ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::WARNING, "Failed to load '%s' due to it's incompatibility with the current ABI version (%u.%u.%u).\n\n", sharedObjectPath.filename().generic_string().c_str(), ABI_VERSION_MAJOR, ABI_VERSION_MINOR, ABI_VERSION_PATCH);
 			SDL_UnloadObject(sharedObjectHandleFunc);
 
 			throw std::runtime_error("Shared object is not compatible with the current ABI verison.");
 			break;
 
 		case 2:
-			ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("Refusing to load '%s' as it is not a ProjectHSI-Bot module.", sharedObjectPath.filename().generic_string().c_str()));
+			ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Refusing to load '%s' as it is not a ProjectHSI-Bot module.", sharedObjectPath.filename().generic_string().c_str());
 			SDL_UnloadObject(sharedObjectHandleFunc);
 
 			throw std::runtime_error("Shared object is not a ProjectHSI-Bot module.");
@@ -126,20 +126,20 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle::operator+() 
 	void *init_func = SDL_LoadFunction(sharedObjectHandleFunc, "init");
 
 	if (!init_func) {
-		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("No initalization function found for '%s'.\n", sharedObjectPath.filename().generic_string().c_str()));
+		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "No initalization function found for '%s'.\n", sharedObjectPath.filename().generic_string().c_str());
 		SDL_UnloadObject(sharedObjectHandleFunc);
 		throw std::runtime_error("No initalization function found.");
 	}
 
 	const ProjectHSI_Bot_Shared_ModuleInformation moduleInformation = reinterpret_cast< ProjectHSI_Bot::Module::SharedLibraryManagement::init_funct >(init_func)({});
-	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::DEBUG, std::format("Module Identifier of '{}': '{}'.", sharedObjectPath.filename().generic_string().c_str(), moduleInformation.name));
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::DEBUG, "Module Identifier of '%s': '%s'.", sharedObjectPath.filename().generic_string().c_str(), moduleInformation.name);
 
 	for (const ModuleTypeFunctionArrayEntry& moduleTypeFunctionMapEntry : moduleTypeFunctionArray) {
 		if (moduleInformation.capabilities & moduleTypeFunctionMapEntry.andOperationOperand)
 			moduleTypeFunctionMapEntry.moduleTypeFunction.first(sharedObjectHandleFunc);
 	}
 
-	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, std::format("Loaded '{}'.", sharedObjectPath.filename().generic_string().c_str()));
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Loaded '%s'.", sharedObjectPath.filename().generic_string().c_str());
 
 	//return { sharedObjectHandle, moduleInformation, sharedObjectPath };
 }
