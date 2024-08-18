@@ -172,9 +172,9 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           #ls -Ra ${{ steps.strings.outputs.build-output-dir }}
-          cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/* ${{ github.workspace }}/dist/
+          cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/ ${{ github.workspace }}/dist/
           #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
-          cp -r ${{ steps.strings.outputs.build-output-dir }}/Project-HSI-Bot-Interface-Default-SDL-GUI/* ${{ github.workspace }}/dist/modules/
+          cp -r ${{ steps.strings.outputs.build-output-dir }}/Project-HSI-Bot-Interface-Default-SDL-GUI/ ${{ github.workspace }}/dist/modules/
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
