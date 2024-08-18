@@ -56,7 +56,7 @@ jobs:
           - gcc
           - clang
           - cl
-        include:
+        #include:
           #- os: ubuntu-latest
           #  build_arch: x64
         exclude:
