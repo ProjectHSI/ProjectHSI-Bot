@@ -56,9 +56,13 @@ jobs:
           - gcc
           - clang
           - cl
-        #include:
-          #- os: ubuntu-latest
-          #  build_arch: x64
+        include:
+          - c_compiler: clang
+            cpp_compiler: clang++
+          - c_compiler: gcc
+            cpp_compiler: g++
+          - c_compiler: cl
+            cpp_compiler: cl
         exclude:
           - os: ubuntu-latest
             build_arch: x86
