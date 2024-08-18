@@ -122,7 +122,6 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: >
           cmake -G "Ninja"
-          -A ${{ matrix.build_arch }}
           -B ${{ steps.strings.outputs.build-output-dir }}
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
