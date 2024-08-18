@@ -127,7 +127,7 @@ namespace ProjectHSI_Bot {
 		\note Do not use std::source_location::current() here. Instead, pass the source location into the call site, and use *that* for the argument.
 		*/
 		inline std::string getSourceLocationString(const std::source_location logSource) {
-		#ifdef _MSC_VER
+		#if defined(_MSC_VER)
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
 		#else
 			return "?";
