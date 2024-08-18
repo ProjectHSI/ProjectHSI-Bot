@@ -11,7 +11,7 @@ env:
 jobs:
   build-checkout:
     name: Pre-checkout
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
       # MacOS is disabled due to configuration errors.
         os:
           - windows-latest
-          - ubuntu-latest
+          - ubuntu-24.04
         #  - macos-latest
         build_type: 
           - release
