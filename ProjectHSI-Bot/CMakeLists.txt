@@ -3,7 +3,7 @@
 #
 
 # Add source to this project's executable.
-add_executable(ProjectHSI-Bot "ProjectHSI-Bot.cpp" "Module/SharedLibraryManagement.cpp" "ApplicationContext.cpp" "Module/ABICheck.cpp" "Module/BasicABIFunctions.cpp" "Logger.cpp" "EventLoop.cpp")
+add_executable(ProjectHSI-Bot "ProjectHSI-Bot.cpp" "Module/SharedLibraryManagement.cpp" "ApplicationContext.cpp" "Module/ABICheck.cpp" "Module/BasicABIFunctions.cpp"  "EventLoop.cpp")
 
 set_property(TARGET ProjectHSI-Bot PROPERTY CXX_STANDARD 23)
 
