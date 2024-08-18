@@ -61,7 +61,13 @@ jobs:
             build_arch: x64
         exclude:
           - os: ubuntu-latest
-            build_arch: '*'
+            build_arch: x86
+          - os: ubuntu-latest
+            build_arch: Win32
+          - os: ubuntu-latest
+            build_arch: ARM
+          - os: ubuntu-latest
+            build_arch: ARM64
 
           - os: windows-latest
             c_compiler: gcc
