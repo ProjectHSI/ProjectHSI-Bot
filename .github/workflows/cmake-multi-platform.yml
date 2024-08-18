@@ -57,8 +57,8 @@ jobs:
           - clang
           - cl
         include:
-          - os: ubuntu-latest
-            build_arch: x64
+          #- os: ubuntu-latest
+          #  build_arch: x64
         exclude:
           - os: ubuntu-latest
             build_arch: x86
