@@ -11,7 +11,7 @@ env:
 jobs:
   build-checkout:
     name: Pre-checkout
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
       # MacOS is disabled due to configuration errors.
         os:
           - windows-latest
-          - ubuntu-24.04
+          - ubuntu-latest
         #  - macos-latest
         build_type: 
           - release
@@ -61,13 +61,13 @@ jobs:
           - clang++
           - cl
         exclude:
-          - os: ubuntu-24.04
+          - os: ubuntu-latest
             build_arch: x86
-          - os: ubuntu-24.04
+          - os: ubuntu-latest
             build_arch: Win32
-          - os: ubuntu-24.04
+          - os: ubuntu-latest
             build_arch: ARM
-          - os: ubuntu-24.04
+          - os: ubuntu-latest
             build_arch: ARM64
 
           - os: windows-latest
@@ -78,7 +78,7 @@ jobs:
           - os: windows-latest
             c_compiler: clang
 
-          - os: ubuntu-24.04
+          - os: ubuntu-latest
             c_compiler: cl
 
           - os: macos-latest
@@ -133,7 +133,7 @@ jobs:
           -S ${{ github.workspace }}
 
       - name: Configure CMake on Ubuntu
-        if: ${{ matrix.os == 'ubuntu-24.04' }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: >
           cmake
           -B ${{ steps.strings.outputs.build-output-dir }}
@@ -169,7 +169,7 @@ jobs:
           cp ${{ steps.strings.outputs.build-output-dir }}/Project-HSI-Bot-Interface-Default-SDL-GUI/* ${{ github.workspace }}/dist/modules/
 
       - name: Copy Build Artifacts For Linux
-        if: ${{ matrix.os == 'ubuntu-24.04' }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/ ${{ github.workspace }}/dist/
           #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
