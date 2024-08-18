@@ -70,6 +70,9 @@ jobs:
             build_arch: ARM64
 
           - os: windows-latest
+            build_arch: x86
+
+          - os: windows-latest
             c_compiler: gcc
           - os: windows-latest
             c_compiler: clang
