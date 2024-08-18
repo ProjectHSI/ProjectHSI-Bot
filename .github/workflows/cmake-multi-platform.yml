@@ -94,6 +94,10 @@ jobs:
             cpp_compiler: cl
           - c_compiler: clang
             cpp_compiler: cl
+          - c_compiler: cl
+            cpp_compiler: clang++
+          - c_compiler: cl
+            cpp_compiler: g++
 
     steps:
       - name: Export GitHub Actions cache environment variables
