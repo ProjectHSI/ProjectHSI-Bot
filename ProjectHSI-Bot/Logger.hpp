@@ -128,7 +128,7 @@ namespace ProjectHSI_Bot {
 		*/
 	#if !defined(__clang__)
 		inline std::string getSourceLocationString(const std::source_location logSource) {
-			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
+			return std::__p2286::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
 		}
 	#endif
 
