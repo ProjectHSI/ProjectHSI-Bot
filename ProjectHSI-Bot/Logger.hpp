@@ -212,7 +212,7 @@ namespace ProjectHSI_Bot {
 		*/
 		template<typename... Args>
 		inline void log(const LogLevel logLevel, const std::string& logMessage, const std::source_location& logSource = std::source_location::current(), Args... args) {
-			return log<&Args...>(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource), &args...);
+			return log(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource), &args...);
 		}
 	#endif
 		/*!
@@ -227,7 +227,7 @@ namespace ProjectHSI_Bot {
 		= ""
 		#endif
 			, Args... args) {
-			return log<&Args...>(logLevelMap.at(logLevel), logMessage, logSource, &args...);
+			return log(logLevelMap.at(logLevel), logMessage, logSource, &args...);
 		}
 	#ifdef _MSC_VER
 		/*!
@@ -237,7 +237,7 @@ namespace ProjectHSI_Bot {
 		*/
 		template<typename... Args>
 		inline void log(const LogStruct &logStruct, const std::string& logMessage, const std::source_location& logSource = std::source_location::current(), Args... args) {
-			return log<&Args...>(logStruct, logMessage, getSourceLocationString(logSource), &args...);
+			return log(logStruct, logMessage, getSourceLocationString(logSource), &args...);
 		}
 	#endif
 	}
