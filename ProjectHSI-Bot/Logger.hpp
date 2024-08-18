@@ -18,6 +18,10 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #include <ProjectHSI-Bot-Shared-Types.h>
 #include <source_location>
 #include <string>
+#include <string_view>
+#include <regex>
+#include <chrono>
+//#include "Logger.cpp"
 
 namespace ProjectHSI_Bot {
 	namespace CLogger {
@@ -140,13 +144,49 @@ namespace ProjectHSI_Bot {
 		\param[in] logSource The source of the log message.
 		*/
 		template<typename... Args>
-		void log(const LogStruct &logStruct, const std::string& logMessage, const std::string& logSource, Args... args);
+		void log(const LogStruct &logStruct, const std::string &logMessage, const std::string &logSource, Args... args);
+
+		template<typename... Args>
+		void log(const LogStruct &logStruct, const std::string& logMessage, const std::string& logSource, Args... args) {
+		// (ascii prefix) [(time)] [(source)] ((level)): (text)\n
+
+		#ifdef _MSC_VER
+			const std::regex printfReplacementCharacter("\%*");
+
+			const std::string stdFormatCompat = std::regex_replace(logMessage, printfReplacementCharacter, "{}");
+
+			fprintf(
+				logStruct.logLevel < 0 ? stderr : stdout,
+				"%s[%s] [%s] (%s): %s\n",
+				logStruct.asciiPrefix.data(),
+				std::format("{0:%c}", std::chrono::system_clock::now()).data(),
+				logSource.data(),
+				logStruct.logPrefix.data(),
+				logMessage.data());
+		#else
+		#pragma warning( push )
+		#pragma warning( disable : 4774 )
+			int nBuffer = snprintf(nullptr, 0, logMessage.data(), &args...);
+			std::string buffer {};
+			buffer.resize(static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(nBuffer) + 1);
+			snprintf(buffer.data(), nBuffer, logMessage.data(), &args...);
+		#pragma warning( pop )
+
+			fprintf(
+				logStruct.logLevel < 0 ? stderr : stdout,
+				"%s(%s): %s\n",
+				logStruct.asciiPrefix.data(),
+				logStruct.logPrefix.data(),
+				buffer.data());
+		#endif
+		}
 
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
+		
 		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogLevel logLevel, const char *logMessage, const std::string& logSource) {
 			log(moduleLogLevelMap.at(logLevel), std::string(logMessage), logSource);
 		}
@@ -170,8 +210,9 @@ namespace ProjectHSI_Bot {
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const LogLevel logLevel, const std::string& logMessage, const std::source_location& logSource = std::source_location::current()) {
-			return log(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource));
+		template<typename... Args>
+		inline void log(const LogLevel logLevel, const std::string& logMessage, const std::source_location& logSource = std::source_location::current(), Args... args) {
+			return log<&Args...>(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource), &args...);
 		}
 	#endif
 		/*!
@@ -179,13 +220,14 @@ namespace ProjectHSI_Bot {
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
+		template<typename... Args>
 		inline void log(const LogLevel logLevel, const std::string& logMessage,
 			const std::string& logSource
 		#ifndef _MSC_VER
 		= ""
 		#endif
-		) {
-			return log(logLevelMap.at(logLevel), logMessage, logSource);
+			, Args... args) {
+			return log<&Args...>(logLevelMap.at(logLevel), logMessage, logSource, args);
 		}
 	#ifdef _MSC_VER
 		/*!
@@ -193,8 +235,9 @@ namespace ProjectHSI_Bot {
 
 		\see ::ProjectHSI_Bot::CLogger::log
 		*/
-		inline void log(const LogStruct &logStruct, const std::string& logMessage, const std::source_location& logSource = std::source_location::current()) {
-			return log(logStruct, logMessage, getSourceLocationString(logSource));
+		template<typename... Args>
+		inline void log(const LogStruct &logStruct, const std::string& logMessage, const std::source_location& logSource = std::source_location::current(), Args... args) {
+			return log<&Args...>(logStruct, logMessage, getSourceLocationString(logSource), args);
 		}
 	#endif
 	}
