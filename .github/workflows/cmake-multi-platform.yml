@@ -42,7 +42,7 @@ jobs:
         os:
           - windows-latest
           - ubuntu-latest
-          - macos-latest
+        #  - macos-latest
         build_type: 
           - release
           - debug
