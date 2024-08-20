@@ -5,7 +5,7 @@
 block()
     try_compile(ProjectHSI_BOT_CXX_COMPILER_COMPLETE SOURCE_FROM_FILE "CXXCompilerCheck.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/CXXCompilerCheck.cpp" CXX_STANDARD 23 CXX_STANDARD_REQUIRED YES)
 
-    #message(STATUS ${ProjectHSI_BOT_CXX_COMPILER_COMPLETE})
+    message(STATUS ${ProjectHSI_BOT_CXX_COMPILER_COMPLETE})
     if(${ProjectHSI_BOT_CXX_COMPILER_COMPLETE} EQUAL TRUE)
         message(FATAL_ERROR "Your compiler doesn't the needed features required for ProjectHSI-Bot to compile, or it doesn't have them in the right place. ProjectHSI-Bot will not compile.")
     endif()
