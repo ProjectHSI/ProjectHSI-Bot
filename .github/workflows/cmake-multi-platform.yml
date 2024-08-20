@@ -107,6 +107,8 @@ jobs:
             core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
             core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
 
+      - run: sudo apt install clang gcc libc++-dev libc++abi-dev
+
       - name: Download pre-checkout
         uses: actions/download-artifact@v4.1.7
         with:

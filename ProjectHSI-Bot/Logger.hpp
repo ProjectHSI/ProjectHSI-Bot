@@ -148,7 +148,7 @@ namespace ProjectHSI_Bot {
 		void log(const LogStruct &logStruct, const std::string& logMessage, const std::string& logSource, Args... args) {
 		// (ascii prefix) [(time)] [(source)] ((level)): (text)\n
 
-		#if 1
+		//#if 1
 			const std::regex printfReplacementCharacter("\%*");
 
 			const std::string stdFormatCompat = std::regex_replace(logMessage, printfReplacementCharacter, "{}");
@@ -161,6 +161,8 @@ namespace ProjectHSI_Bot {
 				logSource.data(),
 				logStruct.logPrefix.data(),
 				logMessage.data());
+
+			/*
 		#else
 		#pragma warning( push )
 		#pragma warning( disable : 4774 )
@@ -177,6 +179,7 @@ namespace ProjectHSI_Bot {
 				logStruct.logPrefix.data(),
 				buffer.data());
 		#endif
+		*/
 		}
 
 		/*!
