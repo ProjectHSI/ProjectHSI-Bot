@@ -145,6 +145,10 @@ jobs:
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
           -S ${{ github.workspace }}
+          
+      - name: Report vcpkg on failure
+        if: failure()
+        run: cat /home/runner/work/ProjectHSI-Bot/ProjectHSI-Bot/build/vcpkg_installed/vcpkg/issue_body.md
 
       - name: Build
         run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
