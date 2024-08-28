@@ -235,7 +235,7 @@ namespace ProjectHSI_Bot {
 			, Args... args) {
 			return log(logLevelMap.at(logLevel), logMessage, logSource, &args...);
 		}
-	#if __cpp_lib_source_location
+	#ifdef __cpp_lib_source_location
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
