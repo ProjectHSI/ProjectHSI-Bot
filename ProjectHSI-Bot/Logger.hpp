@@ -135,7 +135,7 @@ namespace ProjectHSI_Bot {
 		*/
 	#ifdef __cpp_lib_source_location
 		inline std::string getSourceLocationString(const std::source_location logSource) {
-		#ifdef __cpp_lib_source_location
+		#ifdef __cpp_lib_format
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
 		#else
 			int nBuffer = snprintf(nullptr, 0, "%s::%s:%s", logSource.file_name(), logSource.function_name(), logSource.line());
