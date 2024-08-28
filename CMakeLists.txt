@@ -7,9 +7,16 @@ message(NOTICE "CMake Toolchain File: ${CMAKE_TOOLCHAIN_FILE}")
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
-  cmake_policy(SET CMP0141 NEW)
-  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
+	cmake_policy(SET CMP0141 NEW)
+	set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
+
+if (POLICY CMP0091)
+	cmake_policy(SET CMP0091 NEW)
+	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 project ("ProjectHSI-Bot")
 
@@ -19,7 +26,6 @@ option(ProjectHSIBot_NO_BUILD_TARGETS "Disables all builds targets, and only inc
 option(ProjectHSIBot_SDL_STATIC "Compiles SDL statically. May be good for rapid iteration." NO)
 
 if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
-
 	# Include third-party dependencies as submodules.
 	block(SCOPE_FOR VARIABLES)
 		set(BUILD_SHARED_LIBS TRUE)
@@ -45,11 +51,11 @@ if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
 endif()
 
 if(NOT ProjectHSIBot_NO_BUILD_TARGETS)
-	if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-		add_compile_options("/Zc:__cplusplus")
-		add_compile_options("/Zc:__STDC__")
-		add_compile_options("/Wall")
-	endif()
+	#if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	#	add_compile_options("/Zc:__cplusplus")
+	#	add_compile_options("/Zc:__STDC__")
+	#	add_compile_options("/Wall")
+	#endif()
 
 	add_subdirectory("ProjectHSI-Bot-Shared")
 	add_subdirectory("ProjectHSI-Bot-Interface-Default-SDL-GUI")

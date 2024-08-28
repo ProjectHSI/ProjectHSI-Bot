@@ -136,14 +136,26 @@ jobs:
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
           -S ${{ github.workspace }}
 
-      - name: Configure CMake on Ubuntu
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+      - name: Configure CMake for Linux x86
+        if: ${{ matrix.os == 'ubuntu-latest' && x86 }}
         run: >
           cmake
           -B ${{ steps.strings.outputs.build-output-dir }}
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
+          -DCMAKE_C_FLAGS="-m32"
+          -S ${{ github.workspace }}
+
+      - name: Configure CMake for Linux x64
+        if: ${{ matrix.os == 'ubuntu-latest' && x64 }}
+        run: >
+          cmake
+          -B ${{ steps.strings.outputs.build-output-dir }}
+          -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
+          -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+          --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
+          -DCMAKE_C_FLAGS="-m64"
           -S ${{ github.workspace }}
 
       - name: Build
