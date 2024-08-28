@@ -62,8 +62,6 @@ jobs:
           - cl
         exclude:
           - os: ubuntu-latest
-            build_arch: x86
-          - os: ubuntu-latest
             build_arch: Win32
           - os: ubuntu-latest
             build_arch: ARM
@@ -137,7 +135,7 @@ jobs:
           -S ${{ github.workspace }}
 
       - name: Configure CMake for Linux x86
-        if: ${{ matrix.os == 'ubuntu-latest' && x86 }}
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.build_arch == 'x86' }}
         run: >
           cmake
           -B ${{ steps.strings.outputs.build-output-dir }}
@@ -148,7 +146,7 @@ jobs:
           -S ${{ github.workspace }}
 
       - name: Configure CMake for Linux x64
-        if: ${{ matrix.os == 'ubuntu-latest' && x64 }}
+        if: ${{ matrix.os == 'ubuntu-latest' && matrix.build_arch == 'x64' }}
         run: >
           cmake
           -B ${{ steps.strings.outputs.build-output-dir }}
