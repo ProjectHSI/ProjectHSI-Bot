@@ -21,6 +21,9 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #ifdef __cpp_lib_source_location
 #include <source_location>
 #endif
+
+#warning __cpp_lib_source_location
+
 #include <string>
 #include <string_view>
 #include <regex>
