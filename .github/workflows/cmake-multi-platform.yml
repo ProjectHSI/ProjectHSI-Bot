@@ -142,7 +142,7 @@ jobs:
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
-          -DCMAKE_C_FLAGS="-m32"
+          -DCMAKE_C_FLAGS="-m32" -DCMAKE_CXX_FLAGS="-m32"
           -S ${{ github.workspace }}
 
       - name: Configure CMake for Linux x64
@@ -153,7 +153,7 @@ jobs:
           -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
           -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
-          -DCMAKE_C_FLAGS="-m64"
+          -DCMAKE_C_FLAGS="-m64" -DCMAKE_CXX_FLAGS="-m64"
           -S ${{ github.workspace }}
 
       - name: Build
