@@ -210,7 +210,7 @@ namespace ProjectHSI_Bot {
 			log(LogStruct(logStruct), std::string(logMessage), logSource);
 		}
 
-	//#if !defined(__clang__)
+	#ifdef __cpp_lib_source_location
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
@@ -220,7 +220,7 @@ namespace ProjectHSI_Bot {
 		inline void log(const LogLevel logLevel, const std::string& logMessage, const std::source_location& logSource = std::source_location::current(), Args... args) {
 			return log(logLevelMap.at(logLevel), logMessage, getSourceLocationString(logSource), &args...);
 		}
-	//#endif
+	#endif
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
@@ -235,7 +235,7 @@ namespace ProjectHSI_Bot {
 			, Args... args) {
 			return log(logLevelMap.at(logLevel), logMessage, logSource, &args...);
 		}
-	//#if !defined(__clang__)
+	#if __cpp_lib_source_location
 		/*!
 		\brief Inline helper for ::ProjectHSI_Bot::CLogger::log
 
