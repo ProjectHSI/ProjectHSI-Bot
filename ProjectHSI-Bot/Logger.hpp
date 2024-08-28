@@ -22,7 +22,7 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #include <source_location>
 #endif
 
-#warning __cpp_lib_source_location
+#pragma warning __cpp_lib_source_location
 
 #include <string>
 #include <string_view>
