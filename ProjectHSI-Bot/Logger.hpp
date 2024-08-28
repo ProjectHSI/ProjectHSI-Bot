@@ -10,18 +10,21 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 
 #pragma once
 
+#include <version>
+
 #include <cstdint>
 #ifdef __cpp_lib_format
 #include <format>
 #endif
 #include <map>
 #include <ProjectHSI-Bot-Shared-Types.h>
+#ifdef __cpp_lib_source_location
 #include <source_location>
+#endif
 #include <string>
 #include <string_view>
 #include <regex>
 #include <chrono>
-#include <version>
 //#include "Logger.cpp"
 
 namespace ProjectHSI_Bot {
@@ -127,11 +130,11 @@ namespace ProjectHSI_Bot {
 
 		\note Do not use std::source_location::current() here. Instead, pass the source location into the call site, and use *that* for the argument.
 		*/
-	//#if !defined(__clang__)
+	#ifdef __cpp_lib_source_location
 		inline std::string getSourceLocationString(const std::source_location logSource) {
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
 		}
-	//#endif
+	#endif
 
 		/*!
 		\brief Logs a CLogger-style message to stdout and stderr.
@@ -197,9 +200,9 @@ namespace ProjectHSI_Bot {
 		*/
 		inline void log(const ProjectHSI_Bot_Shared_CLogger_LogStruct &logStruct, const char *logMessage,
 			const std::string& logSource
-		//#ifndef _MSC_VER
-			//= ""
-		//#endif
+		#ifndef __cpp_lib_source_location
+			= ""
+		#endif
 		) {
 			log(LogStruct(logStruct), std::string(logMessage), logSource);
 		}
@@ -223,9 +226,9 @@ namespace ProjectHSI_Bot {
 		template<typename... Args>
 		inline void log(const LogLevel logLevel, const std::string& logMessage,
 			const std::string& logSource
-		//#ifndef _MSC_VER
-		//= ""
-		//#endif
+		#ifndef __cpp_lib_source_location
+			= ""
+		#endif
 			, Args... args) {
 			return log(logLevelMap.at(logLevel), logMessage, logSource, &args...);
 		}
