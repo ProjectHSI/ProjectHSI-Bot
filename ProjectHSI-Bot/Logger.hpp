@@ -135,7 +135,16 @@ namespace ProjectHSI_Bot {
 		*/
 	#ifdef __cpp_lib_source_location
 		inline std::string getSourceLocationString(const std::source_location logSource) {
-			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
+		//#ifdef __cpp_lib_source_location
+		//	return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
+		//#else
+			int nBuffer = snprintf(nullptr, 0, "%s::%s:%s", logSource.file_name(), logSource.function_name(), logSource.line());
+			std::string buffer {};
+			buffer.resize(static_cast< std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type >(nBuffer) + 1);
+			snprintf(buffer.data(), nBuffer, "%s::%s:%s", logSource.file_name(), logSource.function_name(), logSource.line());
+
+			return buffer;
+		//#endif
 		}
 	#endif
 
@@ -174,7 +183,7 @@ namespace ProjectHSI_Bot {
 		//#pragma warning( disable : 4774 )
 			int nBuffer = snprintf(nullptr, 0, logMessage.data(), &args...);
 			std::string buffer {};
-			buffer.resize(static_cast<std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type>(nBuffer) + 1);
+			buffer.resize(static_cast< std::basic_string<char, std::char_traits<char>, std::allocator<char>>::size_type >(nBuffer) + 1);
 			snprintf(buffer.data(), nBuffer, logMessage.data(), &args...);
 		//#pragma warning( pop )
 
