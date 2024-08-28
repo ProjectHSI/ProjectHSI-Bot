@@ -245,6 +245,6 @@ namespace ProjectHSI_Bot {
 		inline void log(const LogStruct &logStruct, const std::string& logMessage, const std::source_location& logSource = std::source_location::current(), Args... args) {
 			return log(logStruct, logMessage, getSourceLocationString(logSource), &args...);
 		}
-	//#endif
+	#endif
 	}
 }
