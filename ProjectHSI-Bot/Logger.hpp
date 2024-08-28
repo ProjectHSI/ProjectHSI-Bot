@@ -11,9 +11,9 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #pragma once
 
 #include <cstdint>
-//#if defined(_MSC_VER)
+#ifdef __cpp_lib_format
 #include <format>
-//#endif
+#endif
 #include <map>
 #include <ProjectHSI-Bot-Shared-Types.h>
 #include <source_location>
