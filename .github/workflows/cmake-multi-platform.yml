@@ -168,7 +168,7 @@ jobs:
         run: |
           cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/ProjectHSI-Bot ${{ github.workspace }}/dist/
           #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
-          cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot-Interface-Default-SDL-GUI/ ${{ github.workspace }}/dist/modules/
+          cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot-Interface-Default-SDL-GUI/libProjectHSI-Bot-Interface-Default-SDL-GUI.so ${{ github.workspace }}/dist/modules/
   
       - name: Attest
         uses: actions/attest-build-provenance@v1.4.2
