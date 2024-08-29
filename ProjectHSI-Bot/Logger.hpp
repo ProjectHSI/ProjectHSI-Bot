@@ -128,12 +128,12 @@ namespace ProjectHSI_Bot {
 		\brief Maps a ::ProjectHSI_Bot_Shared_CLogger_LogLevel to a ::ProjectHSI_Bot::CLogger::LogStruct.
 		*/
 		const std::map<ProjectHSI_Bot_Shared_CLogger_LogLevel, LogStruct> moduleLogLevelMap {{
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::ERROR, {-1, "Error", "\033[0m\033[0;101m\033[1;90m"}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::WARNING, {100, "Warning", "\033[0m\033[40m\033[0;33m"}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::INFORMATION, {200, "Information", "\033[0m\033[40m\033[0;37m"}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::VERBOSE, {300, "Verbose", "\033[0m\033[40m\033[0;35m"}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::DEBUG, {400, "Debug", "\033[0m\033[40m\033[0;32m"}},
-			{ProjectHSI_Bot_Shared_CLogger_LogLevel::TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m"}}
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::ERROR, {-1, "Error", "\033[0;101m\033[1;90m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::WARNING, {100, "Warning", "\033[40m\033[0;33m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::INFORMATION, {200, "Information", "\033[40m\033[0;37m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::VERBOSE, {300, "Verbose", "\033[40m\033[0;35m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::DEBUG, {400, "Debug", "\033[40m\033[0;32m"}},
+			{ProjectHSI_Bot_Shared_CLogger_LogLevel::TRACE, {500, "Trace", "\033[40m\033[0;36m"}}
 		}};
 
 	#ifdef __cpp_lib_source_location
@@ -179,7 +179,7 @@ namespace ProjectHSI_Bot {
 
 			fprintf(
 				logStruct.logLevel < 0 ? stderr : stdout,
-				"%s[%s] [%s] (%s): %s\n",
+				"%s[%s] [%s] (%s): %s\033[0m\n",
 				logStruct.asciiPrefix.data(),
 				std::format("{0:%c}", std::chrono::system_clock::now()).data(),
 				logSource.data(),

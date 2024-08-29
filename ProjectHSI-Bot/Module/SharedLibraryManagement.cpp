@@ -63,12 +63,13 @@ void ProjectHSI_Bot::Module::SharedLibraryManagement::loadModules() noexcept(tru
 
 	if (std::filesystem::exists(modulesPath)) {
 		for (const std::filesystem::directory_entry &entry : std::filesystem::directory_iterator(modulesPath)) {
-			//ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle moduleBundle = ProjectHSI_Bot::Module::SharedLibraryManagement::loadModule(entry.path());
-			//if (moduleBundle)
-				//modules.push_back(moduleBundle);
+			ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle moduleBundle = ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleBundle(entry.path());
+			//moduleBundle + ;
+			if (moduleBundle.getModuleStatus() & ProjectHSI_Bot::Module::SharedLibraryManagement::ModuleStatus::INIT)
+				modules.push_back(moduleBundle);
 		}
 	} else {
-		fprintf(stderr, "The 'modules' directory doesn't exist. This means that no modules will be loaded. Press any key to exit the application on the prompt.\n");
+		ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::ERROR, "The 'modules' directory doesn't exist. This means that no modules will be loaded. Press any key to exit the application on the prompt.\n");
 	}
 }
 
