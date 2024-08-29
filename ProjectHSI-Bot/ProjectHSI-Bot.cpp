@@ -15,7 +15,12 @@ int main()
 {
 	ProjectHSI_Bot::ApplicationContext::initalize();
 
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::TRACE, "Test");
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::DEBUG, "Test");
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::VERBOSE, "Test");
 	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::INFORMATION, "Test");
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::WARNING, "Test");
+	ProjectHSI_Bot::CLogger::log(ProjectHSI_Bot::CLogger::LogLevel::ERROR, "Test");
 
 	ProjectHSI_Bot::Module::SharedLibraryManagement::loadModules();
 	ProjectHSI_Bot::Module::SharedLibraryManagement::unloadModules();
