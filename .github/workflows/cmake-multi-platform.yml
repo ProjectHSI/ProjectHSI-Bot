@@ -67,6 +67,8 @@ jobs:
             build_arch: ARM
           - os: ubuntu-latest
             build_arch: ARM64
+          - os: ubuntu-latest
+            build_arch: x86
 
           - os: windows-latest
             build_arch: x86
@@ -98,10 +100,6 @@ jobs:
             cpp_compiler: g++
 
     steps:
-      - name: Install required dependencies on Ubuntu
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: sudo apt-get install libtool
-
       - name: Export GitHub Actions cache environment variables
         uses: actions/github-script@v7
         with:
@@ -134,17 +132,17 @@ jobs:
           --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
           -S ${{ github.workspace }}
 
-      - name: Configure CMake for Linux x86
-        if: ${{ matrix.os == 'ubuntu-latest' && matrix.build_arch == 'x86' }}
-        run: >
-          cmake
-          -B ${{ steps.strings.outputs.build-output-dir }}
-          -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
-          -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
-          --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
-          -DCMAKE_FIND_ROOT_PATH="/usr/x86-linux-gnu"
-          -DCMAKE_C_FLAGS="-m32" -DCMAKE_CXX_FLAGS="-m32"
-          -S ${{ github.workspace }}
+      #- name: Configure CMake for Linux x86
+      #  if: ${{ matrix.os == 'ubuntu-latest' && matrix.build_arch == 'x86' }}
+      #  run: >
+      #    cmake
+      #    -B ${{ steps.strings.outputs.build-output-dir }}
+      #    -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
+      #    -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
+      #    --preset ${{ matrix.build_arch }}-${{ matrix.build_type }}
+      #    -DCMAKE_FIND_ROOT_PATH="/usr/x86-linux-gnu"
+      #    -DCMAKE_C_FLAGS="-m32" -DCMAKE_CXX_FLAGS="-m32"
+      #    -S ${{ github.workspace }}
 
       - name: Configure CMake for Linux x64
         if: ${{ matrix.os == 'ubuntu-latest' && matrix.build_arch == 'x64' }}
