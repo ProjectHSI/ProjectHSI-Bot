@@ -13,16 +13,24 @@ This file supplies the `ProjectHSI_Bot::CLogger` namespace and implements the in
 #include <version>
 
 #include <cstdint>
+
 #ifdef __cpp_lib_format
 #include <format>
 #endif
+
 #include <map>
 #include <ProjectHSI-Bot-Shared-Types.h>
+
 #ifdef __cpp_lib_source_location
 #include <source_location>
 #endif
 
-#pragma warning __cpp_lib_source_location
+#ifdef __doxygen
+#define __cpp_lib_source_location
+#define __cpp_lib_format
+#endif
+
+//#pragma warning __cpp_lib_source_location
 
 #include <string>
 #include <string_view>
@@ -128,12 +136,12 @@ namespace ProjectHSI_Bot {
 			{ProjectHSI_Bot_Shared_CLogger_LogLevel::TRACE, {500, "Trace", "\033[0m\033[40m\033[0;36m"}}
 		}};
 
+	#ifdef __cpp_lib_source_location
 		/*!
 		\brief Gets a concise string from a sourceLocation.
 
 		\note Do not use std::source_location::current() here. Instead, pass the source location into the call site, and use *that* for the argument.
 		*/
-	#ifdef __cpp_lib_source_location
 		inline std::string getSourceLocationString(const std::source_location logSource) {
 		#ifdef __cpp_lib_format
 			return std::format("{}::{}:{}", logSource.file_name(), logSource.function_name(), logSource.line());
