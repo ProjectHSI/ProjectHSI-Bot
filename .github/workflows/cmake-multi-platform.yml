@@ -187,6 +187,11 @@ jobs:
           cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot/ ${{ github.workspace }}/dist/
           #cp ${{ github.workspace }}/build/third_party/SDL/libSDL2-2.0.so ${{ github.workspace }}/dist/libSDL2-2.0.so
           cp -r ${{ steps.strings.outputs.build-output-dir }}/ProjectHSI-Bot-Interface-Default-SDL-GUI/ ${{ github.workspace }}/dist/modules/
+  
+      - name: Attest
+        uses: actions/attest-build-provenance@v1.4.2
+        with:
+          subject-path: '${{ github.workspace }}/dist/'
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4.0.0
